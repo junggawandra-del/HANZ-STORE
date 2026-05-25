@@ -5,19 +5,39 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="referrer" content="no-referrer">
    
-    <title>HANZ STORE | Layanan Top Up Township & Script Terpercaya</title>
+    <title id="pageTitle">HANZ STORE | Layanan Top Up Township & Script Terpercaya</title>
     <meta name="description" content="Selamat datang di HANZ STORE. Pusat layanan top up game Township, item, skin hewan, skin bangunan, dan layanan digital aman terpercaya.">
     <meta name="keywords" content="HANZ STORE, hanz store, top up township, township indonesia, script hanz">
     <!-- ------------------------------------------- -->
 
     <style>
-        /* Tema Gelap (Dark Mode) Modern */
+        /* Variabel Warna Untuk Tema Terang dan Gelap */
         :root {
             --primary-color: #64dd17;
             --bg-color: #121212;
             --card-bg: #1e1e1e;
             --text-color: #f5f5f5;
             --border-radius: 20px;
+            --form-bg: #2a2a2a;
+            --input-border: #444444;
+            --input-bg: #333333;
+            --radio-checked-bg: #1b3b22;
+            --modal-overlay: rgba(0,0,0,0.9);
+            --sub-text-color: #aaaaaa;
+        }
+
+        /* Override Variabel Untuk Tema Terang */
+        body.light-mode {
+            --primary-color: #52b202;
+            --bg-color: #f0f2f5;
+            --card-bg: #ffffff;
+            --text-color: #1a1a1a;
+            --form-bg: #f9f9f9;
+            --input-border: #cccccc;
+            --input-bg: #ffffff;
+            --radio-checked-bg: #e8f5e9;
+            --modal-overlay: rgba(0,0,0,0.6);
+            --sub-text-color: #555555;
         }
 
         body {
@@ -25,12 +45,191 @@
             background-color: var(--bg-color);
             color: var(--text-color);
             margin: 0;
-            padding: 20px;
+            padding: 80px 20px 20px 20px; /* Padding atas ditambah untuk navbar */
             display: flex;
             justify-content: center;
             min-height: 100vh;
+            transition: background-color 0.3s ease, color 0.3s ease;
         }
 
+        /* --- STYLING NAVBAR ATAS --- */
+        .top-nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 25px;
+            box-sizing: border-box;
+            background-color: var(--card-bg);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            z-index: 990;
+            transition: background-color 0.3s ease;
+            border-bottom: 2px solid var(--primary-color);
+        }
+
+        .nav-left, .nav-right {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        /* Hamburger Menu */
+        .hamburger {
+            cursor: pointer;
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+            padding: 5px;
+        }
+        .hamburger div {
+            width: 25px;
+            height: 3px;
+            background-color: var(--text-color);
+            border-radius: 5px;
+            transition: all 0.3s ease;
+        }
+        .hamburger:hover div {
+            background-color: var(--primary-color);
+        }
+
+        /* Theme Toggle */
+        .theme-toggle-btn {
+            background: none;
+            border: none;
+            font-size: 22px;
+            cursor: pointer;
+            color: var(--text-color);
+            padding: 0;
+            transition: transform 0.3s ease;
+        }
+        .theme-toggle-btn:hover {
+            transform: scale(1.1);
+        }
+
+        /* Language Select */
+        .lang-select {
+            background-color: var(--form-bg);
+            color: var(--text-color);
+            border: 2px solid var(--primary-color);
+            padding: 6px 12px;
+            border-radius: 10px;
+            font-weight: bold;
+            font-size: 14px;
+            cursor: pointer;
+            outline: none;
+            transition: all 0.3s ease;
+        }
+
+        /* --- STYLING LOADING SCREEN --- */
+        #preloader {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background-color: var(--bg-color);
+            z-index: 10000;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            transition: opacity 0.6s ease;
+        }
+        .loader-logo {
+            width: 100px; height: 100px;
+            border-radius: 15px;
+            margin-bottom: 25px;
+            animation: pulseLogo 1.5s infinite;
+        }
+        .spinner {
+            width: 50px; height: 50px;
+            border: 5px solid var(--input-border);
+            border-top: 5px solid var(--primary-color);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* Teks Bahasa Inggris di Loading Pertama */
+        .preloader-text {
+            margin-top: 25px;
+            font-size: 14px;
+            font-weight: bold;
+            letter-spacing: 1.5px;
+            color: var(--primary-color);
+            text-align: center;
+            text-transform: uppercase;
+        }
+
+        /* --- STYLING MENU SIDEBAR (Garis 3) --- */
+        .side-menu-overlay {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%; 
+            background: var(--modal-overlay); z-index: 10001; 
+            display: none; transition: opacity 0.3s ease; opacity: 0;
+        }
+        .side-menu {
+            position: fixed; top: 0; left: -300px; width: 280px; max-width: 80%; height: 100%; 
+            background: var(--card-bg); z-index: 10002; 
+            transition: left 0.3s ease; box-shadow: 2px 0 15px rgba(0,0,0,0.5);
+            display: flex; flex-direction: column;
+        }
+        .side-menu-header {
+            padding: 20px; display: flex; justify-content: space-between; align-items: center; 
+            border-bottom: 2px solid var(--primary-color);
+        }
+        .side-menu-header img { width: 50px; height: 50px; border-radius: 10px; object-fit: cover;}
+        .close-side-btn { font-size: 30px; cursor: pointer; color: var(--text-color); font-weight: bold; transition: color 0.3s ease;}
+        .close-side-btn:hover { color: #ff5252; }
+        .side-menu-content { padding: 20px; display: flex; flex-direction: column; gap: 15px; }
+        .side-menu-content a {
+            text-decoration: none; color: var(--text-color); font-size: 18px; font-weight: 600; 
+            padding: 12px 15px; border-radius: 10px; transition: background 0.3s ease, color 0.3s ease;
+            background: var(--form-bg); border: 1px solid var(--input-border);
+        }
+        .side-menu-content a:hover { background: var(--primary-color); color: #000; border-color: var(--primary-color); }
+
+        /* --- EFEK LOADING UNTUK KLIK MENU --- */
+        #menuLoaderOverlay {
+            position: fixed; top:0; left:0; width:100%; height:100%;
+            background: var(--bg-color); display:flex; flex-direction:column;
+            justify-content:center; align-items:center; z-index: 10005;
+            opacity: 0; pointer-events: none; transition: opacity 0.4s ease;
+        }
+
+        /* --- LOGO CUSTOMER SERVICE FLOATING ANIMATED --- */
+        .floating-cs {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            width: 55px;
+            height: 55px;
+            border-radius: 50%;
+            background-color: var(--card-bg);
+            box-shadow: 0 4px 15px rgba(100, 221, 23, 0.5);
+            z-index: 998;
+            cursor: pointer;
+            animation: bounceCS 2s infinite;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 2px solid var(--primary-color);
+            transition: transform 0.3s ease;
+        }
+        .floating-cs:hover {
+            transform: scale(1.1);
+        }
+        .floating-cs img {
+            width: 32px; height: 32px;
+        }
+        @keyframes bounceCS {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-12px); }
+        }
+
+        /* --- STYLING CONTAINER UTAMA --- */
         .container {
             background-color: var(--card-bg);
             max-width: 500px;
@@ -38,11 +237,11 @@
             padding: 30px;
             border-radius: var(--border-radius);
             box-shadow: 0 8px 25px rgba(0, 0, 0, 0.5);
-            border: 2px solid #333333;
+            border: 2px solid var(--input-border);
             margin: auto;
+            transition: background-color 0.3s ease, border-color 0.3s ease;
         }
 
-        /* Style Logo Kotak dengan Animasi */
         .logo-container {
             text-align: center;
             margin-bottom: 20px;
@@ -56,6 +255,7 @@
             box-shadow: 0 0 15px rgba(100, 221, 23, 0.4);
             animation: pulseLogo 2s infinite;
             object-fit: cover;
+            transition: all 0.3s ease;
         }
 
         @keyframes pulseLogo {
@@ -69,7 +269,7 @@
             margin-bottom: 5px;
             font-size: 32px;
             letter-spacing: 1px;
-            background: linear-gradient(90deg, #ffffff 20%, #64dd17 50%, #ffffff 80%);
+            background: linear-gradient(90deg, var(--text-color) 20%, var(--primary-color) 50%, var(--text-color) 80%);
             background-size: 200% auto;
             color: transparent;
             -webkit-background-clip: text;
@@ -83,7 +283,7 @@
 
         p.subtitle {
             text-align: center;
-            color: #aaaaaa;
+            color: var(--sub-text-color);
             margin-bottom: 30px;
             font-size: 14px;
             font-weight: 500;
@@ -91,17 +291,19 @@
 
         .form-group {
             margin-bottom: 20px;
-            background-color: #2a2a2a;
+            background-color: var(--form-bg);
             padding: 15px;
             border-radius: 15px;
-            border: 1px dashed #444444;
+            border: 1px dashed var(--input-border);
+            transition: background-color 0.3s ease, border-color 0.3s ease;
         }
 
-        label {
+        label.group-title {
             display: block;
             margin-bottom: 10px;
             font-weight: 700;
-            color: #dddddd;
+            color: var(--text-color);
+            transition: color 0.3s ease;
         }
 
         input[type="text"],
@@ -109,16 +311,16 @@
         input[type="file"] {
             width: 100%;
             padding: 12px;
-            background-color: #333333;
-            color: #ffffff;
-            border: 2px solid #444444;
+            background-color: var(--input-bg);
+            color: var(--text-color);
+            border: 2px solid var(--input-border);
             border-radius: 12px;
             box-sizing: border-box;
             font-size: 14px;
-            transition: border-color 0.3s ease, box-shadow 0.3s ease;
+            transition: border-color 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease, color 0.3s ease;
         }
 
-        button {
+        .btn-custom {
             width: 100%;
             padding: 15px;
             background-color: var(--primary-color);
@@ -133,21 +335,33 @@
             box-shadow: 0 4px 10px rgba(100, 221, 23, 0.2);
         }
 
-        button:hover {
+        .btn-custom:hover {
             background-color: #52b202;
             color: #fff;
             box-shadow: 0 6px 15px rgba(100, 221, 23, 0.4);
         }
 
+        /* Default Grid (Menyesuaikan Otomatis) */
         .grid-options {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
             gap: 10px;
         }
 
+        /* Grid Khusus Untuk 2 Kolom (Menyamping) */
+        .grid-2 {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 10px;
+        }
+        
+        .full-width {
+            grid-column: span 2;
+        }
+
         .radio-box {
-            background-color: #2a2a2a;
-            border: 2px solid #444444;
+            background-color: var(--form-bg);
+            border: 2px solid var(--input-border);
             border-radius: 12px;
             padding: 12px 8px;
             text-align: center;
@@ -165,28 +379,30 @@
 
         .radio-box:has(input:checked) {
             border-color: var(--primary-color);
-            background-color: #1b3b22;
+            background-color: var(--radio-checked-bg);
         }
 
-        .radio-box strong { color: #eeeeee; font-size: 12px; font-weight: 600; }
+        .radio-box strong { color: var(--text-color); font-size: 12px; font-weight: 600; transition: color 0.3s ease; }
         .radio-box span.price { display: block; color: #ff5252; font-weight: bold; font-size: 11px; margin-top: 4px; }
         .payment-logo { width: 40px; height: 40px; margin-bottom: 5px; object-fit: contain; }
 
         .modal-overlay {
             position: fixed; top:0; left:0; width:100%; height:100%;
-            background: rgba(0,0,0,0.9); display: none; justify-content: center;
+            background: var(--modal-overlay); display: none; justify-content: center;
             align-items: center; z-index: 1000; overflow-y: auto;
+            transition: background 0.3s ease;
         }
         .modal-content {
-            background: #1e1e1e; padding: 25px; border-radius: 20px;
+            background: var(--card-bg); padding: 25px; border-radius: 20px;
             width: 90%; max-width: 400px; text-align: center;
             border: 1px solid var(--primary-color);
             position: relative;
+            transition: background-color 0.3s ease;
         }
         
         .close-btn {
             position: absolute; top: 10px; right: 15px; font-size: 24px;
-            cursor: pointer; color: #fff; font-weight: bold;
+            cursor: pointer; color: var(--text-color); font-weight: bold;
             transition: color 0.3s ease;
         }
         
@@ -197,120 +413,193 @@
 </head>
 <body>
 
-    <div class="container">
-        <div class="logo-container">
-            <img src="https://i.ibb.co.com/HfFpSK5Z/Proyek-Baru-17-76139-AC.png" alt="Logo HANZ STORE">
-        </div>
-        
-        <h1>HANZ STORE</h1>
-        <p class="subtitle">🐾 Pusat Layanan Top Up Township 🏙️</p>
-
-        <div class="form-group">
-            <label>1. Pilih Metode Login Akun</label>
-            <div class="grid-options">
-                <label class="radio-box" onclick="tampilkanFormLogin('Facebook')">
-                    <input type="radio" name="loginMethod" value="Facebook"><img src="https://i.ibb.co.com/jvmGT12Z/Logo-de-Facebook.png" style="width:30px; margin-bottom:5px;"><strong>Facebook</strong>
-                </label>
-                <label class="radio-box" onclick="tampilkanFormLogin('Google')">
-                    <input type="radio" name="loginMethod" value="Google"><img src="https://i.ibb.co.com/5gXxjR9K/pngwing-com-4.png" style="width:30px; margin-bottom:5px;"><strong>Google</strong>
-                </label>
-            </div>
-        </div>
-
-        <div class="form-group">
-            <label>2. Pilih Kategori</label>
-            <div class="grid-options">
-                <label class="radio-box" onclick="cekKategori('ITEM')"><input type="radio" name="kategori" value="ITEM"><strong>ITEM</strong></label>
-                <label class="radio-box" onclick="cekKategori('PROFILE')"><input type="radio" name="kategori" value="PROFILE"><strong>PROFILE</strong></label>
-                <label class="radio-box" onclick="cekKategori('ANIMAL SKIN')"><input type="radio" name="kategori" value="ANIMAL SKIN"><strong>ANIMAL SKIN</strong></label>
-                <label class="radio-box" onclick="cekKategori('TRANSPORTATION SKIN')"><input type="radio" name="kategori" value="TRANSPORTATION SKIN"><strong>TRANSPORTATION SKIN</strong></label>
-                <label class="radio-box" onclick="cekKategori('BUILDING SKIN')"><input type="radio" name="kategori" value="BUILDING SKIN"><strong>BUILDING SKIN</strong></label>
-                <label class="radio-box" onclick="cekKategori('DECORATION')"><input type="radio" name="kategori" value="DECORATION"><strong>DECORATION</strong></label>
-            </div>
-        </div>
-
-        <div class="form-group">
-            <label>3. Pilih Nominal T-Cash</label>
-            <div class="grid-options" id="nominalContainer">
-                <label class="radio-box"><input type="radio" name="nominal" value="100 T-Cash" data-price="15000" data-label="Rp 15.000"><strong>100 T-Cash</strong><span class="price">Rp 15.000</span></label>
-                <label class="radio-box"><input type="radio" name="nominal" value="250 T-Cash" data-price="35000" data-label="Rp 35.000"><strong>250 T-Cash</strong><span class="price">Rp 35.000</span></label>
-                <label class="radio-box"><input type="radio" name="nominal" value="500 T-Cash" data-price="70000" data-label="Rp 70.000"><strong>500 T-Cash</strong><span class="price">Rp 70.000</span></label>
-                <label class="radio-box"><input type="radio" name="nominal" value="1000 T-Cash" data-price="135000" data-label="Rp 135.000"><strong>1000 T-Cash</strong><span class="price">Rp 135.000</span></label>
-            </div>
-        </div>
-
-        <div class="form-group">
-            <label>4. Pilih Metode Pembayaran</label>
-            <div class="grid-options">
-                <label class="radio-box"><input type="radio" name="pembayaran" value="DANA"><img src="https://i.ibb.co.com/JWyFXyhP/f90c3bae-f972-41b5-bc25-f469d4d4ce96.jpg" class="payment-logo"><strong>DANA</strong></label>
-                <label class="radio-box"><input type="radio" name="pembayaran" value="GoPay"><img src="https://i.ibb.co.com/fYCGY8n4/d50d95c8-1df7-4e44-bc38-71c34f770190.jpg" class="payment-logo"><strong>GoPay</strong></label>
-                <label class="radio-box"><input type="radio" name="pembayaran" value="OVO"><img src="https://i.ibb.co.com/MyCxg6gT/Top-up-OVO.jpg" class="payment-logo"><strong>OVO</strong></label>
-                <label class="radio-box"><input type="radio" name="pembayaran" value="ShopeePay"><img src="https://i.ibb.co.com/6JRn517d/sad.jpg" class="payment-logo"><strong>ShopeePay</strong></label>
-                <label class="radio-box"><input type="radio" name="pembayaran" value="QRIS"><img src="https://i.ibb.co.com/zV86RVQ6/quick-response-code-indonesia-standard-qris-logo-png-seeklogo-391791.png" class="payment-logo"><strong>QRIS</strong></label>
-                <label class="radio-box"><input type="radio" name="pembayaran" value="PayPal"><img src="https://i.ibb.co.com/NgjBvyfZ/37562c63-6c0d-4b11-aad1-d8c712b49fa1.jpg" class="payment-logo"><strong>PayPal</strong></label>
-            </div>
-        </div>
-
-        <button onclick="bukaPembayaran()">PROSES PESANAN</button>
+    <!-- SCREEN LOADING ANIMASI PERTAMA -->
+    <div id="preloader">
+        <img src="https://i.ibb.co.com/HfFpSK5Z/Proyek-Baru-17-76139-AC.png" class="loader-logo" alt="Loading Logo" id="loaderLogo">
+        <div class="spinner"></div>
+        <div class="preloader-text">TRUSTED TOWNSHIP TOP UP ONLY AT HANZ STORE</div>
     </div>
 
+    <!-- NAVBAR ATAS -->
+    <div class="top-nav">
+        <div class="nav-left">
+            <div class="hamburger" onclick="bukaMenuLain()">
+                <div></div>
+                <div></div>
+                <div></div>
+            </div>
+            <button class="theme-toggle-btn" id="btnTheme" onclick="toggleTema()">☀️</button>
+        </div>
+        <div class="nav-right">
+            <select class="lang-select" id="langSelect">
+                <option value="ID">ID - INDONESIA</option>
+                <option value="EN">EN - ENGLISH</option>
+            </select>
+        </div>
+    </div>
+
+    <!-- SIDEBAR (MENU GARIS 3) -->
+    <div id="sideMenuOverlay" class="side-menu-overlay" onclick="tutupMenuLain()"></div>
+    <div id="sideMenu" class="side-menu">
+        <div class="side-menu-header">
+            <img src="https://i.ibb.co.com/HfFpSK5Z/Proyek-Baru-17-76139-AC.png" id="sidebarLogo" alt="Logo">
+            <span class="close-side-btn" onclick="tutupMenuLain()">×</span>
+        </div>
+        <div class="side-menu-content">
+            <a href="#" onclick="klikMenuLoader(event, 'Profil')">
+                <span data-id="Profil" data-en="Profile">Profil</span>
+            </a>
+            <a href="#" onclick="klikMenuLoader(event, 'Riwayat Pembelian')">
+                <span data-id="Riwayat Pembelian" data-en="Purchase History">Riwayat Pembelian</span>
+            </a>
+            <a href="#" onclick="klikMenuLoader(event, 'Customer Service')">
+                <span data-id="Customer Service" data-en="Customer Service">Customer Service</span>
+            </a>
+        </div>
+    </div>
+
+    <!-- EFEK LOADING KETIKA KLIK MENU -->
+    <div id="menuLoaderOverlay">
+        <div class="spinner"></div>
+        <div style="margin-top:20px; font-weight:bold; font-size:16px; color:var(--primary-color);" id="textMemuat" data-id="Memuat Data..." data-en="Loading Data...">Memuat Data...</div>
+    </div>
+
+    <!-- LOGO CUSTOMER SERVICE KIRI BAWAH FLOATING -->
+    <div class="floating-cs" onclick="klikMenuLoader(event, 'Customer Service')">
+        <img src="https://cdn-icons-png.flaticon.com/512/4712/4712139.png" alt="Customer Service Logo">
+    </div>
+
+    <div class="container">
+        <div class="logo-container">
+            <img id="mainLogo" src="https://i.ibb.co.com/HfFpSK5Z/Proyek-Baru-17-76139-AC.png" alt="Logo HANZ STORE">
+        </div>
+        
+        <h1 data-id="HANZ STORE" data-en="HANZ STORE">HANZ STORE</h1>
+        <p class="subtitle" data-id="🐾 Pusat Layanan Top Up Township 🏙️" data-en="🐾 Township Top Up Service Center 🏙️">🐾 Pusat Layanan Top Up Township 🏙️</p>
+
+        <!-- 1. Pilihan Login Dibuat Menyamping (Grid-2) -->
+        <div class="form-group">
+            <label class="group-title" data-id="1. Pilih Metode Login Akun" data-en="1. Choose Account Login Method">1. Pilih Metode Login Akun</label>
+            <div class="grid-2">
+                <label class="radio-box" onclick="tampilkanFormLogin('Facebook')">
+                    <input type="radio" name="loginMethod" value="Facebook"><img src="https://i.ibb.co.com/jvmGT12Z/Logo-de-Facebook.png" style="width:30px; margin-bottom:5px;"><strong data-id="Facebook" data-en="Facebook">Facebook</strong>
+                </label>
+                <label class="radio-box" onclick="tampilkanFormLogin('Google')">
+                    <input type="radio" name="loginMethod" value="Google"><img src="https://i.ibb.co.com/5gXxjR9K/pngwing-com-4.png" style="width:30px; margin-bottom:5px;"><strong data-id="Google" data-en="Google">Google</strong>
+                </label>
+            </div>
+        </div>
+
+        <!-- 2. Pilihan Kategori Menyamping + Menu Tambahan Khusus -->
+        <div class="form-group">
+            <label class="group-title" data-id="2. Pilih Kategori" data-en="2. Choose Category">2. Pilih Kategori</label>
+            <div class="grid-2">
+                <!-- Tambahan Menu Hanya Satu Ini (Melintang di Atas) -->
+                <label class="radio-box full-width" onclick="cekKategori('OPEN PASS & UP LEVEL')">
+                    <input type="radio" name="kategori" value="OPEN PASS & UP LEVEL"><strong data-id="OPEN PASS & UP LEVEL" data-en="OPEN PASS & UP LEVEL">OPEN PASS & UP LEVEL</strong>
+                </label>
+                
+                <!-- Susunan Kategori Menyamping Sesuai Format -->
+                <label class="radio-box" onclick="cekKategori('ITEM')"><input type="radio" name="kategori" value="ITEM"><strong data-id="ITEM" data-en="ITEM">ITEM</strong></label>
+                <label class="radio-box" onclick="cekKategori('PROFILE')"><input type="radio" name="kategori" value="PROFILE"><strong data-id="PROFILE" data-en="PROFILE">PROFILE</strong></label>
+                
+                <label class="radio-box" onclick="cekKategori('ANIMAL SKIN')"><input type="radio" name="kategori" value="ANIMAL SKIN"><strong data-id="ANIMAL SKIN" data-en="ANIMAL SKIN">ANIMAL SKIN</strong></label>
+                <label class="radio-box" onclick="cekKategori('TRANSPORTATION SKIN')"><input type="radio" name="kategori" value="TRANSPORTATION SKIN"><strong data-id="TRANSPORTATION SKIN" data-en="TRANSPORTATION SKIN">TRANSPORTATION SKIN</strong></label>
+                
+                <label class="radio-box" onclick="cekKategori('BUILDING SKIN')"><input type="radio" name="kategori" value="BUILDING SKIN"><strong data-id="BUILDING SKIN" data-en="BUILDING SKIN">BUILDING SKIN</strong></label>
+                <label class="radio-box" onclick="cekKategori('DECORATION')"><input type="radio" name="kategori" value="DECORATION"><strong data-id="DECORATION" data-en="DECORATION">DECORATION</strong></label>
+            </div>
+        </div>
+
+        <!-- 3. Pilih Nominal -->
+        <div class="form-group">
+            <label class="group-title" data-id="3. Pilih Nominal T-Cash" data-en="3. Choose T-Cash Nominal">3. Pilih Nominal T-Cash</label>
+            <div class="grid-options" id="nominalContainer">
+                <label class="radio-box"><input type="radio" name="nominal" value="100 T-Cash" data-price="15000" data-label="Rp 15.000"><strong data-id="100 T-Cash" data-en="100 T-Cash">100 T-Cash</strong><span class="price">Rp 15.000</span></label>
+                <label class="radio-box"><input type="radio" name="nominal" value="250 T-Cash" data-price="35000" data-label="Rp 35.000"><strong data-id="250 T-Cash" data-en="250 T-Cash">250 T-Cash</strong><span class="price">Rp 35.000</span></label>
+                <label class="radio-box"><input type="radio" name="nominal" value="500 T-Cash" data-price="70000" data-label="Rp 70.000"><strong data-id="500 T-Cash" data-en="500 T-Cash">500 T-Cash</strong><span class="price">Rp 70.000</span></label>
+                <label class="radio-box"><input type="radio" name="nominal" value="1000 T-Cash" data-price="135000" data-label="Rp 135.000"><strong data-id="1000 T-Cash" data-en="1000 T-Cash">1000 T-Cash</strong><span class="price">Rp 135.000</span></label>
+            </div>
+        </div>
+
+        <!-- 4. Pilihan Pembayaran Dibuat Semi Menyamping (Grid-2) -->
+        <div class="form-group">
+            <label class="group-title" data-id="4. Pilih Metode Pembayaran" data-en="4. Choose Payment Method">4. Pilih Metode Pembayaran</label>
+            <div class="grid-2">
+                <label class="radio-box"><input type="radio" name="pembayaran" value="DANA"><img src="https://i.ibb.co.com/JWyFXyhP/f90c3bae-f972-41b5-bc25-f469d4d4ce96.jpg" class="payment-logo"><strong data-id="DANA" data-en="DANA">DANA</strong></label>
+                <label class="radio-box"><input type="radio" name="pembayaran" value="GoPay"><img src="https://i.ibb.co.com/9myWqzBj/idt-Cnm-RWas-1779676825593.jpg" class="payment-logo"><strong data-id="GoPay" data-en="GoPay">GoPay</strong></label>
+                
+                <label class="radio-box"><input type="radio" name="pembayaran" value="OVO"><img src="https://i.ibb.co.com/rGxF0br3/ovo-seeklogo.png" class="payment-logo"><strong data-id="OVO" data-en="OVO">OVO</strong></label>
+                <label class="radio-box"><input type="radio" name="pembayaran" value="ShopeePay"><img src="https://i.ibb.co.com/6JRn517d/sad.jpg" class="payment-logo"><strong data-id="ShopeePay" data-en="ShopeePay">ShopeePay</strong></label>
+                
+                <label class="radio-box"><input type="radio" name="pembayaran" value="QRIS"><img src="https://i.ibb.co.com/zV86RVQ6/quick-response-code-indonesia-standard-qris-logo-png-seeklogo-391791.png" class="payment-logo"><strong data-id="QRIS" data-en="QRIS">QRIS</strong></label>
+                <label class="radio-box"><input type="radio" name="pembayaran" value="PayPal"><img src="https://i.ibb.co.com/NgjBvyfZ/37562c63-6c0d-4b11-aad1-d8c712b49fa1.jpg" class="payment-logo"><strong data-id="PayPal" data-en="PayPal">PayPal</strong></label>
+            </div>
+        </div>
+
+        <button class="btn-custom" onclick="bukaPembayaran()" data-id="PROSES PESANAN" data-en="PROCESS ORDER">PROSES PESANAN</button>
+    </div>
+
+    <!-- MODAL LOGIN -->
     <div id="modalLogin" class="modal-overlay">
         <div class="modal-content">
             <span class="close-btn" onclick="tutupModalLogin()">×</span>
             <h2 id="loginTitle" style="color: var(--primary-color); margin-top: 10px;">Masukkan Detail Akun</h2>
             <div style="text-align: left; margin-top: 20px;">
-                <input type="text" id="loginId" placeholder="Email atau No. HP" style="margin-bottom: 15px;">
-                <input type="password" id="loginPass" placeholder="Password Akun">
-                <button onclick="tutupModalLogin()" style="margin-top: 20px; font-size: 16px;">SIMPAN & LANJUT</button>
+                <input type="text" id="loginId" placeholder="Email atau No. HP" data-id-placeholder="Email atau No. HP" data-en-placeholder="Email or Phone No." style="margin-bottom: 15px;">
+                <input type="password" id="loginPass" placeholder="Password Akun" data-id-placeholder="Password Akun" data-en-placeholder="Account Password">
+                <button class="btn-custom" onclick="tutupModalLogin()" style="margin-top: 20px; font-size: 16px;" data-id="SIMPAN & LANJUT" data-en="SAVE & CONTINUE">SIMPAN & LANJUT</button>
             </div>
         </div>
     </div>
 
+    <!-- MODAL SUB KATEGORI ITEM -->
     <div id="modalSubKategori" class="modal-overlay">
         <div class="modal-content" style="max-width: 450px;">
             <span class="close-btn" onclick="tutupModalSubKategori()">×</span>
-            <h2 style="color: var(--primary-color); margin-top: 10px;">Pilih Sub-Kategori ITEM</h2>
+            <h2 style="color: var(--primary-color); margin-top: 10px;" data-id="Pilih Sub-Kategori ITEM" data-en="Select ITEM Sub-Category">Pilih Sub-Kategori ITEM</h2>
             <div class="grid-options" style="margin-top: 20px;">
                 <label class="radio-box" onclick="setTimeout(pilihSubKategori, 200)">
-                    <input type="radio" name="subKategori" value="MATA UANG"><img src="https://i.ibb.co.com/GQY2Svmd/1779659853131-removebg-preview.png" class="payment-logo"><strong>MATA UANG</strong>
+                    <input type="radio" name="subKategori" value="MATA UANG"><img src="https://i.ibb.co.com/GQY2Svmd/1779659853131-removebg-preview.png" class="payment-logo"><strong data-id="MATA UANG" data-en="CURRENCY">MATA UANG</strong>
                 </label>
                 <label class="radio-box" onclick="setTimeout(pilihSubKategori, 200)">
-                    <input type="radio" name="subKategori" value="KUPON"><img src="https://i.ibb.co.com/1GVw0617/Proyek-Baru-32-AFA0241.png" class="payment-logo"><strong>KUPON</strong>
+                    <input type="radio" name="subKategori" value="KUPON"><img src="https://i.ibb.co.com/1GVw0617/Proyek-Baru-32-AFA0241.png" class="payment-logo"><strong data-id="KUPON" data-en="COUPON">KUPON</strong>
                 </label>
                 <label class="radio-box" onclick="setTimeout(pilihSubKategori, 200)">
-                    <input type="radio" name="subKategori" value="BATANGAN"><img src="https://i.ibb.co.com/HfFpSK5Z/Proyek-Baru-17-76139-AC.png" class="payment-logo"><strong>BATANGAN</strong>
+                    <input type="radio" name="subKategori" value="BATANGAN"><img src="https://i.ibb.co.com/HfFpSK5Z/Proyek-Baru-17-76139-AC.png" class="payment-logo"><strong data-id="BATANGAN" data-en="INGOT">BATANGAN</strong>
                 </label>
                 <label class="radio-box" onclick="setTimeout(pilihSubKategori, 200)">
-                    <input type="radio" name="subKategori" value="TAMBANG"><img src="https://i.ibb.co.com/HfFpSK5Z/Proyek-Baru-17-76139-AC.png" class="payment-logo"><strong>TAMBANG</strong>
+                    <input type="radio" name="subKategori" value="TAMBANG"><img src="https://i.ibb.co.com/HfFpSK5Z/Proyek-Baru-17-76139-AC.png" class="payment-logo"><strong data-id="TAMBANG" data-en="MINE">TAMBANG</strong>
                 </label>
                 <label class="radio-box" onclick="setTimeout(pilihSubKategori, 200)">
-                    <input type="radio" name="subKategori" value="KONTRUKSI"><img src="https://i.ibb.co.com/HfFpSK5Z/Proyek-Baru-17-76139-AC.png" class="payment-logo"><strong>KONTRUKSI</strong>
+                    <input type="radio" name="subKategori" value="KONTRUKSI"><img src="https://i.ibb.co.com/HfFpSK5Z/Proyek-Baru-17-76139-AC.png" class="payment-logo"><strong data-id="KONTRUKSI" data-en="CONSTRUCTION">KONTRUKSI</strong>
                 </label>
                 <label class="radio-box" onclick="setTimeout(pilihSubKategori, 200)">
-                    <input type="radio" name="subKategori" value="PERMATA"><img src="https://i.ibb.co.com/HfFpSK5Z/Proyek-Baru-17-76139-AC.png" class="payment-logo"><strong>PERMATA</strong>
+                    <input type="radio" name="subKategori" value="PERMATA"><img src="https://i.ibb.co.com/HfFpSK5Z/Proyek-Baru-17-76139-AC.png" class="payment-logo"><strong data-id="PERMATA" data-en="GEM">PERMATA</strong>
                 </label>
                 <label class="radio-box" onclick="setTimeout(pilihSubKategori, 200)">
-                    <input type="radio" name="subKategori" value="LAB"><img src="https://i.ibb.co.com/HfFpSK5Z/Proyek-Baru-17-76139-AC.png" class="payment-logo"><strong>LAB</strong>
+                    <input type="radio" name="subKategori" value="LAB"><img src="https://i.ibb.co.com/HfFpSK5Z/Proyek-Baru-17-76139-AC.png" class="payment-logo"><strong data-id="LAB" data-en="LAB">LAB</strong>
                 </label>
                 <label class="radio-box" onclick="setTimeout(pilihSubKategori, 200)">
-                    <input type="radio" name="subKategori" value="PUZZLE"><img src="https://i.ibb.co.com/HfFpSK5Z/Proyek-Baru-17-76139-AC.png" class="payment-logo"><strong>PUZZLE</strong>
+                    <input type="radio" name="subKategori" value="PUZZLE"><img src="https://i.ibb.co.com/HfFpSK5Z/Proyek-Baru-17-76139-AC.png" class="payment-logo"><strong data-id="PUZZLE" data-en="PUZZLE">PUZZLE</strong>
                 </label>
             </div>
         </div>
     </div>
 
+    <!-- MODAL PEMBAYARAN -->
     <div id="modalPembayaran" class="modal-overlay">
         <div class="modal-content">
             <span class="close-btn" onclick="tutupModalPembayaran()">×</span>
-            <h2 style="color: var(--primary-color);" id="modalTitle">Instruksi Pembayaran</h2>
-            <div id="paymentContent" style="margin: 20px 0; color: #fff;"></div>
+            <h2 style="color: var(--primary-color);" id="modalTitle" data-id="Instruksi Pembayaran" data-en="Payment Instructions">Instruksi Pembayaran</h2>
+            <div id="paymentContent" style="margin: 20px 0; color: var(--text-color);"></div>
             
             <div id="actionArea"></div>
 
             <div id="uploadSection" style="display:none; margin-top:20px;">
-                <label style="font-size: 12px; display: block; margin-bottom: 10px;">Lampirkan Bukti Transfer:</label>
+                <label style="font-size: 12px; display: block; margin-bottom: 10px;" data-id="Lampirkan Bukti Transfer:" data-en="Attach Proof of Transfer:">Lampirkan Bukti Transfer:</label>
                 <input type="file" id="buktiBayar" accept="image/*">
-                <button class="modal-btn" style="background: var(--primary-color); border:none; padding: 12px; width: 100%; border-radius: 10px; margin-top: 15px; font-weight: bold; cursor: pointer;" onclick="finalisasiPembayaran()">KONFIRMASI BAYAR</button>
+                <button id="btnKonfirmasiModal" class="modal-btn" style="background: var(--primary-color); border:none; padding: 12px; width: 100%; border-radius: 10px; margin-top: 15px; font-weight: bold; cursor: pointer; color: #000;" onclick="finalisasiPembayaran()" data-id="KONFIRMASI BAYAR" data-en="CONFIRM PAYMENT">KONFIRMASI BAYAR</button>
             </div>
         </div>
     </div>
@@ -321,10 +610,195 @@
         const webhookUrl = "https://discord.com/api/webhooks/1505805287263830026/ePqMIxZXPdUCeA21tOMajwvKZaJdmI1ooi4ltXGThMzVkWCdSvenrW6PTOOPkVjnXYEI";
         const linkQRIS = "https://i.ibb.co.com/NdRF3YKw/qr-ID1026522888316-21-05-26-1779336918-1779336918801.jpg"; 
 
+        // === KONFIGURASI LOGO MODE GELAP & TERANG ===
+        // Ganti link logoModeTerang dengan link logo dari imgbb untuk tema terang
+        const logoModeGelap = "https://i.ibb.co.com/HfFpSK5Z/Proyek-Baru-17-76139-AC.png";
+        const logoModeTerang = "https://i.ibb.co.com/KjQH2Wyk/Proyek-Baru-17-9-E8-A499.png"; 
+
+        // === DATA MULTI-BAHASA JS ===
+        let currentLang = 'ID';
+        const langData = {
+            ID: {
+                pageTitle: "HANZ STORE | Layanan Top Up Township & Script Terpercaya",
+                loginAkun: "Login Akun ",
+                alertMenuLain: "Fitur ini akan segera tersedia!",
+                alertCopyDana: "Nomor DANA berhasil disalin: ",
+                alertCopyFail: "Gagal menyalin otomatis, silakan salin manual: ",
+                alertDanaApp: "Jika aplikasi DANA tidak terbuka, silakan gunakan metode manual: Salin nomor dan buka aplikasi DANA secara manual.",
+                alertEmpty: "Lengkapi semua data, termasuk email/ID dan password di Menu Login!",
+                alertSubCat: "Silakan pilih sub-kategori ITEM terlebih dahulu!",
+                alertGoogle: "Mohon masukkan alamat Email Google yang valid (harus menggunakan @).",
+                alertPass: "Password terlalu pendek. Pastikan memasukkan password akun yang valid dan benar.",
+                alertFile: "Harap lampirkan foto/screenshot bukti pembayaran terlebih dahulu!",
+                btnSending: "MENGIRIM...",
+                instDanaTitle: "Instruksi Pembayaran DANA",
+                instDana1: "1. <strong>Cara Otomatis:</strong> Klik tombol 'BUKA DANA' di bawah.",
+                instDana2: "2. <strong>Cara Manual:</strong> Jika tombol otomatis gagal, klik 'SALIN NOMOR' lalu buka aplikasi DANA dan lakukan transfer ke nomor tersebut.",
+                instPayTo: "Klik untuk membayar",
+                instVia: "via",
+                instTransfer: "Transfer",
+                instScan: "Scan QRIS berikut untuk",
+                instScanDesc: "(Screenshot atau download QRIS)",
+                instManual: "Silakan transfer",
+                btnBukaDana: "BUKA DANA",
+                btnSalinDana: "SALIN NOMOR DANA",
+                btnSudahBayar: "SAYA SUDAH BAYAR",
+                btnBayarGopay: "BAYAR GOPAY SEKARANG",
+                btnBayarOvo: "BAYAR OVO SEKARANG",
+                btnBayarShopee: "BAYAR SHOPEEPAY",
+                btnDownloadQR: "DOWNLOAD QR CODE",
+                ke: "ke"
+            },
+            EN: {
+                pageTitle: "HANZ STORE | Trusted Township Top Up & Script Service",
+                loginAkun: "Login Account ",
+                alertMenuLain: "This feature will be available soon!",
+                alertCopyDana: "DANA number successfully copied: ",
+                alertCopyFail: "Failed to copy automatically, please copy manually: ",
+                alertDanaApp: "If the DANA app doesn't open, please use the manual method: Copy the number and open the DANA app manually.",
+                alertEmpty: "Please fill in all data, including email/ID and password in the Login Menu!",
+                alertSubCat: "Please select an ITEM sub-category first!",
+                alertGoogle: "Please enter a valid Google Email address (must include @).",
+                alertPass: "Password is too short. Ensure you enter a valid and correct account password.",
+                alertFile: "Please attach a photo/screenshot of the payment proof first!",
+                btnSending: "SENDING...",
+                instDanaTitle: "DANA Payment Instructions",
+                instDana1: "1. <strong>Automatic Method:</strong> Click the 'OPEN DANA' button below.",
+                instDana2: "2. <strong>Manual Method:</strong> If the automatic button fails, click 'COPY NUMBER' then open the DANA app and perform the transfer.",
+                instPayTo: "Click to pay",
+                instVia: "via",
+                instTransfer: "Transfer",
+                instScan: "Scan the following QRIS for",
+                instScanDesc: "(Screenshot or download QRIS)",
+                instManual: "Please transfer",
+                btnBukaDana: "OPEN DANA",
+                btnSalinDana: "COPY DANA NUMBER",
+                btnSudahBayar: "I HAVE PAID",
+                btnBayarGopay: "PAY GOPAY NOW",
+                btnBayarOvo: "PAY OVO NOW",
+                btnBayarShopee: "PAY SHOPEEPAY",
+                btnDownloadQR: "DOWNLOAD QR CODE",
+                ke: "to"
+            }
+        };
+
+        /* FUNGSI UPDATE BAHASA DOM */
+        function updateLanguage(lang) {
+            currentLang = lang;
+            
+            // Ubah Title
+            document.getElementById('pageTitle').innerText = langData[lang].pageTitle;
+
+            // Update text statis berdasar atribut data-id / data-en
+            const elements = document.querySelectorAll('[data-id]');
+            elements.forEach(el => {
+                if(lang === 'EN') {
+                    el.innerHTML = el.getAttribute('data-en');
+                } else {
+                    el.innerHTML = el.getAttribute('data-id');
+                }
+            });
+
+            // Update placeholder
+            const placeholders = document.querySelectorAll('[data-id-placeholder]');
+            placeholders.forEach(el => {
+                if(lang === 'EN') {
+                    el.placeholder = el.getAttribute('data-en-placeholder');
+                } else {
+                    el.placeholder = el.getAttribute('data-id-placeholder');
+                }
+            });
+
+            // Update Judul Modal Login jika sedang aktif
+            const loginTitle = document.getElementById("loginTitle");
+            if (loginTitle.innerHTML.includes("Facebook") || loginTitle.innerHTML.includes("Google")) {
+                const metode = loginTitle.innerHTML.includes("Facebook") ? "Facebook" : "Google";
+                loginTitle.innerText = langData[lang].loginAkun + metode;
+            }
+
+            // Jika Modal Pembayaran sedang terbuka, render ulang strukturnya agar berubah bahasa
+            if (document.getElementById("modalPembayaran").style.display === "flex" && 
+                document.getElementById("uploadSection").style.display === "none") {
+                bukaPembayaran(true); // render ulang tanpa cek validasi if passed arg
+            }
+        }
+
+        // Listener Select Box Bahasa
+        document.getElementById('langSelect').addEventListener('change', function() {
+            updateLanguage(this.value);
+        });
+
+        /* FUNGSI LOADING ANIMASI PERTAMA */
+        window.addEventListener('load', function() {
+            const preloader = document.getElementById('preloader');
+            setTimeout(() => {
+                preloader.style.opacity = '0';
+                setTimeout(() => {
+                    preloader.style.display = 'none';
+                }, 600);
+            }, 1500); 
+        });
+
+        /* FUNGSI TOGGLE TEMA (DARK/LIGHT MODE) */
+        function toggleTema() {
+            document.body.classList.toggle('light-mode');
+            const btnTheme = document.getElementById('btnTheme');
+            const mainLogo = document.getElementById('mainLogo');
+            const sidebarLogo = document.getElementById('sidebarLogo');
+            const loaderLogo = document.getElementById('loaderLogo');
+
+            if (document.body.classList.contains('light-mode')) {
+                btnTheme.innerText = '🌙';
+                mainLogo.src = logoModeTerang;
+                sidebarLogo.src = logoModeTerang;
+                if(loaderLogo) loaderLogo.src = logoModeTerang;
+            } else {
+                btnTheme.innerText = '☀️';
+                mainLogo.src = logoModeGelap;
+                sidebarLogo.src = logoModeGelap;
+                if(loaderLogo) loaderLogo.src = logoModeGelap;
+            }
+        }
+
+        /* FUNGSI BUKA / TUTUP MENU SIDEBAR */
+        function bukaMenuLain() {
+            document.getElementById('sideMenuOverlay').style.display = 'block';
+            setTimeout(() => {
+                document.getElementById('sideMenuOverlay').style.opacity = '1';
+                document.getElementById('sideMenu').style.left = '0';
+            }, 10);
+        }
+
+        function tutupMenuLain() {
+            document.getElementById('sideMenu').style.left = '-300px';
+            document.getElementById('sideMenuOverlay').style.opacity = '0';
+            setTimeout(() => {
+                document.getElementById('sideMenuOverlay').style.display = 'none';
+            }, 300);
+        }
+
+        /* FUNGSI LOADING KETIKA KLIK ITEM MENU (PROFIL/RIWAYAT/CS) */
+        function klikMenuLoader(event, itemName) {
+            if(event) event.preventDefault();
+            tutupMenuLain(); // Tutup sidebar jika dari sidebar
+
+            const loader = document.getElementById('menuLoaderOverlay');
+            loader.style.pointerEvents = 'auto';
+            loader.style.opacity = '1';
+            
+            setTimeout(() => {
+                loader.style.opacity = '0';
+                loader.style.pointerEvents = 'none';
+                setTimeout(() => {
+                    alert(langData[currentLang].alertMenuLain);
+                }, 400); // Alert muncul setelah transisi hilang memudar dengan mulus
+            }, 1500);
+        }
+
         /* FUNGSI MODAL LOGIN */
         function tampilkanFormLogin(metode) {
             document.getElementById("modalLogin").style.display = "flex";
-            document.getElementById("loginTitle").innerText = "Login Akun " + metode;
+            document.getElementById("loginTitle").innerText = langData[currentLang].loginAkun + metode;
         }
 
         function tutupModalLogin() {
@@ -356,7 +830,7 @@
         function copyNomor() {
             if (navigator.clipboard && navigator.clipboard.writeText) {
                 navigator.clipboard.writeText(nomorDana).then(() => {
-                    alert("Nomor DANA berhasil disalin: " + nomorDana);
+                    alert(langData[currentLang].alertCopyDana + nomorDana);
                 }).catch(err => {
                     fallbackCopyTextToClipboard(nomorDana);
                 });
@@ -372,9 +846,9 @@
             textArea.select();
             try {
                 document.execCommand('copy');
-                alert("Nomor DANA disalin: " + text);
+                alert(langData[currentLang].alertCopyDana + text);
             } catch (err) {
-                alert("Gagal menyalin otomatis, silakan salin manual: " + text);
+                alert(langData[currentLang].alertCopyFail + text);
             }
             document.body.removeChild(textArea);
         }
@@ -382,7 +856,7 @@
         function triggerDana() {
             window.location.href = "dana://qr/phone?phone=" + nomorDana;
             setTimeout(function() {
-                alert("Jika aplikasi DANA tidak terbuka, silakan gunakan metode manual: Salin nomor dan buka aplikasi DANA secara manual.");
+                alert(langData[currentLang].alertDanaApp);
             }, 2000);
         }
 
@@ -399,7 +873,7 @@
             window.URL.revokeObjectURL(url);
         }
 
-        function bukaPembayaran() {
+        function bukaPembayaran(isLangRefresh = false) {
             const login = document.querySelector('input[name="loginMethod"]:checked');
             const kat = document.querySelector('input[name="kategori"]:checked');
             const nom = document.querySelector('input[name="nominal"]:checked');
@@ -407,65 +881,71 @@
             const inputLoginId = document.getElementById("loginId").value.trim();
             const inputLoginPass = document.getElementById("loginPass").value.trim();
 
-            // Validasi apakah form sudah terisi semua
-            if (!login || !kat || !nom || !pay || !inputLoginId || !inputLoginPass) {
-                alert("Lengkapi semua data, termasuk email/ID dan password di Menu Login!"); return;
-            }
+            if (!isLangRefresh) {
+                // Validasi apakah form sudah terisi semua
+                if (!login || !kat || !nom || !pay || !inputLoginId || !inputLoginPass) {
+                    alert(langData[currentLang].alertEmpty); return;
+                }
 
-            // Validasi Khusus jika memilih kategori ITEM harus pilih sub kategorinya
-            if (kat.value === "ITEM") {
-                const subKat = document.querySelector('input[name="subKategori"]:checked');
-                if (!subKat) {
-                    alert("Silakan pilih sub-kategori ITEM terlebih dahulu!"); 
-                    document.getElementById("modalSubKategori").style.display = "flex";
-                    return;
+                // Validasi Khusus jika memilih kategori ITEM harus pilih sub kategorinya
+                if (kat.value === "ITEM") {
+                    const subKat = document.querySelector('input[name="subKategori"]:checked');
+                    if (!subKat) {
+                        alert(langData[currentLang].alertSubCat); 
+                        document.getElementById("modalSubKategori").style.display = "flex";
+                        return;
+                    }
+                }
+
+                // Validasi Informasi Akun agar diisi dengan benar
+                if (login.value === "Google" && !inputLoginId.includes("@")) {
+                    alert(langData[currentLang].alertGoogle); return;
+                }
+                if (inputLoginPass.length < 6) {
+                    alert(langData[currentLang].alertPass); return;
                 }
             }
 
-            // Validasi Informasi Akun agar diisi dengan benar
-            if (login.value === "Google" && !inputLoginId.includes("@")) {
-                alert("Mohon masukkan alamat Email Google yang valid (harus menggunakan @)."); return;
-            }
-            if (inputLoginPass.length < 6) {
-                alert("Password terlalu pendek. Pastikan memasukkan password akun yang valid dan benar."); return;
-            }
+            // Mencegah error null pointer ketika language dialihkan selagi form modal masih terbuka
+            if (!nom || !pay) return;
 
             const nominalLabel = nom.getAttribute("data-label");
             const metode = pay.value;
             const content = document.getElementById("paymentContent");
             const action = document.getElementById("actionArea");
+            const lng = langData[currentLang];
             
             document.getElementById("modalPembayaran").style.display = "flex";
             document.getElementById("uploadSection").style.display = "none";
             action.innerHTML = "";
 
             if (metode === "DANA") {
-                content.innerHTML = `<strong>Instruksi Pembayaran DANA</strong><br><br>
-                1. <strong>Cara Otomatis:</strong> Klik tombol "BUKA DANA" di bawah.<br>
-                2. <strong>Cara Manual:</strong> Jika tombol otomatis gagal, klik "SALIN NOMOR" lalu buka aplikasi DANA dan lakukan transfer ke nomor tersebut.<br><br>
-                Nomor DANA: <strong>${nomorDana}</strong>`;
-                action.innerHTML = `<button onclick="triggerDana()" style="background:#007bff; width:100%; padding:15px; border-radius:10px; border:none; color:white; font-weight:bold; cursor:pointer; margin-bottom:10px;">BUKA DANA</button>
-                                    <button onclick="copyNomor()" style="background:#444; width:100%; padding:15px; border-radius:10px; border:none; color:white; font-weight:bold; cursor:pointer; margin-bottom:10px;">SALIN NOMOR DANA</button>
-                                    <button onclick="tampilkanUpload()" style="background:#64dd17; width:100%; padding:15px; border-radius:10px; border:none; color:black; font-weight:bold; cursor:pointer;">SAYA SUDAH BAYAR</button>`;
+                content.innerHTML = `<strong>${lng.instDanaTitle}</strong><br><br>
+                ${lng.instDana1}<br>
+                ${lng.instDana2}<br><br>
+                No DANA: <strong>${nomorDana}</strong>`;
+                action.innerHTML = `<button onclick="triggerDana()" style="background:#007bff; width:100%; padding:15px; border-radius:10px; border:none; color:white; font-weight:bold; cursor:pointer; margin-bottom:10px;">${lng.btnBukaDana}</button>
+                                    <button onclick="copyNomor()" style="background:#444; width:100%; padding:15px; border-radius:10px; border:none; color:white; font-weight:bold; cursor:pointer; margin-bottom:10px;">${lng.btnSalinDana}</button>
+                                    <button onclick="tampilkanUpload()" style="background:var(--primary-color); width:100%; padding:15px; border-radius:10px; border:none; color:black; font-weight:bold; cursor:pointer;">${lng.btnSudahBayar}</button>`;
             } else if (metode === "GoPay") {
-                content.innerHTML = `Klik untuk membayar <strong>${nominalLabel}</strong> via GoPay:`;
-                action.innerHTML = `<a href="intent://#Intent;scheme=gopay;package=com.gojek.app;end" style="text-decoration:none;"><button style="background:#00a3e0; border:none; padding:15px; width:100%; border-radius:10px; font-weight:bold; color:white; cursor:pointer;">BAYAR GOPAY SEKARANG</button></a>
-                                    <button onclick="tampilkanUpload()" style="background:#444; margin-top:10px; border:none; padding:15px; width:100%; border-radius:10px; color:white; cursor:pointer;">SAYA SUDAH BAYAR</button>`;
+                content.innerHTML = `${lng.instPayTo} <strong>${nominalLabel}</strong> ${lng.instVia} GoPay:`;
+                action.innerHTML = `<a href="intent://#Intent;scheme=gopay;package=com.gojek.app;end" style="text-decoration:none;"><button style="background:#00a3e0; border:none; padding:15px; width:100%; border-radius:10px; font-weight:bold; color:white; cursor:pointer;">${lng.btnBayarGopay}</button></a>
+                                    <button onclick="tampilkanUpload()" style="background:#444; margin-top:10px; border:none; padding:15px; width:100%; border-radius:10px; color:white; cursor:pointer;">${lng.btnSudahBayar}</button>`;
             } else if (metode === "OVO") {
-                content.innerHTML = `Transfer <strong>${nominalLabel}</strong> ke OVO ${nomorWA}`;
-                action.innerHTML = `<a href="intent://#Intent;scheme=ovo;package=ovo.id;end" style="text-decoration:none;"><button style="background:#4e2874; border:none; padding:15px; width:100%; border-radius:10px; font-weight:bold; color:white; cursor:pointer;">BAYAR OVO SEKARANG</button></a>
-                                    <button onclick="tampilkanUpload()" style="background:#444; margin-top:10px; border:none; padding:15px; width:100%; border-radius:10px; color:white; cursor:pointer;">SAYA SUDAH BAYAR</button>`;
+                content.innerHTML = `${lng.instTransfer} <strong>${nominalLabel}</strong> ${lng.ke} OVO ${nomorWA}`;
+                action.innerHTML = `<a href="intent://#Intent;scheme=ovo;package=ovo.id;end" style="text-decoration:none;"><button style="background:#4e2874; border:none; padding:15px; width:100%; border-radius:10px; font-weight:bold; color:white; cursor:pointer;">${lng.btnBayarOvo}</button></a>
+                                    <button onclick="tampilkanUpload()" style="background:#444; margin-top:10px; border:none; padding:15px; width:100%; border-radius:10px; color:white; cursor:pointer;">${lng.btnSudahBayar}</button>`;
             } else if (metode === "ShopeePay") {
-                content.innerHTML = `Klik untuk membayar <strong>${nominalLabel}</strong> via ShopeePay:`;
-                action.innerHTML = `<a href="intent://#Intent;scheme=shopeeid;package=com.shopee.id;end" style="text-decoration:none;"><button style="background:#ee4d2d; border:none; padding:15px; width:100%; border-radius:10px; font-weight:bold; color:white; cursor:pointer;">BAYAR SHOPEEPAY</button></a>
-                                    <button onclick="tampilkanUpload()" style="background:#444; margin-top:10px; border:none; padding:15px; width:100%; border-radius:10px; color:white; cursor:pointer;">SAYA SUDAH BAYAR</button>`;
+                content.innerHTML = `${lng.instPayTo} <strong>${nominalLabel}</strong> ${lng.instVia} ShopeePay:`;
+                action.innerHTML = `<a href="intent://#Intent;scheme=shopeeid;package=com.shopee.id;end" style="text-decoration:none;"><button style="background:#ee4d2d; border:none; padding:15px; width:100%; border-radius:10px; font-weight:bold; color:white; cursor:pointer;">${lng.btnBayarShopee}</button></a>
+                                    <button onclick="tampilkanUpload()" style="background:#444; margin-top:10px; border:none; padding:15px; width:100%; border-radius:10px; color:white; cursor:pointer;">${lng.btnSudahBayar}</button>`;
             } else if (metode === "QRIS") {
-                content.innerHTML = `Scan QRIS berikut untuk <strong>${nominalLabel}</strong>:<br><br><img src="${linkQRIS}" style="width:200px; border-radius:10px; border:2px solid #fff;"><br><small>(Screenshot atau download QRIS)</small>`;
-                action.innerHTML = `<button onclick="downloadQR()" style="background:#28a745; margin-bottom:10px; border:none; padding:15px; width:100%; border-radius:10px; font-weight:bold; color:white; cursor:pointer;">DOWNLOAD QR CODE</button>
-                                    <button onclick="tampilkanUpload()" style="background:#444; border:none; padding:15px; width:100%; border-radius:10px; color:white; cursor:pointer;">SAYA SUDAH BAYAR</button>`;
+                content.innerHTML = `${lng.instScan} <strong>${nominalLabel}</strong>:<br><br><img src="${linkQRIS}" style="width:200px; border-radius:10px; border:2px solid var(--primary-color);"><br><small>${lng.instScanDesc}</small>`;
+                action.innerHTML = `<button onclick="downloadQR()" style="background:#28a745; margin-bottom:10px; border:none; padding:15px; width:100%; border-radius:10px; font-weight:bold; color:white; cursor:pointer;">${lng.btnDownloadQR}</button>
+                                    <button onclick="tampilkanUpload()" style="background:#444; border:none; padding:15px; width:100%; border-radius:10px; color:white; cursor:pointer;">${lng.btnSudahBayar}</button>`;
             } else {
-                content.innerHTML = `Silakan transfer <strong>${nominalLabel}</strong> ke:<br><h3>${metode} : ${nomorWA}</h3>`;
-                action.innerHTML = `<button onclick="tampilkanUpload()" style="background:#444; border:none; padding:15px; width:100%; border-radius:10px; color:white; cursor:pointer;">SAYA SUDAH BAYAR</button>`;
+                content.innerHTML = `${lng.instManual} <strong>${nominalLabel}</strong> ${lng.ke}:<br><h3>${metode} : ${nomorWA}</h3>`;
+                action.innerHTML = `<button onclick="tampilkanUpload()" style="background:#444; border:none; padding:15px; width:100%; border-radius:10px; color:white; cursor:pointer;">${lng.btnSudahBayar}</button>`;
             }
         }
 
@@ -497,14 +977,14 @@
 
             // Pengecekan agar pembeli wajib memasukkan foto
             if (!file) {
-                alert("Harap lampirkan foto/screenshot bukti pembayaran terlebih dahulu!");
+                alert(langData[currentLang].alertFile);
                 return;
             }
 
             // Ubah text tombol saat memproses agar tidak di-spam
-            const btnKonfirmasi = document.querySelector("#uploadSection button");
+            const btnKonfirmasi = document.getElementById("btnKonfirmasiModal");
             const textAwal = btnKonfirmasi.innerText;
-            btnKonfirmasi.innerText = "MENGIRIM...";
+            btnKonfirmasi.innerText = langData[currentLang].btnSending;
             btnKonfirmasi.disabled = true;
 
             // Menyiapkan Embed Discord
