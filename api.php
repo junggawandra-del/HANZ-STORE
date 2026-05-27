@@ -5,8 +5,8 @@ date_default_timezone_set('Asia/Jakarta');
 // Konfigurasi Database (Sesuaikan jika di-hosting)
 $host = 'localhost';
 $db   = 'hanzstore';
-$user = 'root'; // Username database Anda
-$pass = '';     // Password database Anda
+$user = 'http://192.168.1.36:8080/mysqladmin/index.php?route=/database/structure&db=hanzstoretwn'; // Username database Anda
+$pass = 'root';     // Password database Anda
 
 try {
     $pdo = new PDO("mysql:host=$host;dbname=$db;charset=utf8", $user, $pass);
@@ -106,3 +106,4 @@ elseif ($action === 'deduct_balance') {
     }
 }
 ?>
+
