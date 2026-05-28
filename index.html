@@ -1,27 +1,25 @@
 <!DOCTYPE html>
+
 <html lang="id">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="referrer" content="no-referrer">
-   
-    <!-- ========================================== -->
-    <!-- OPTIMASI SEO GOOGLE UNTUK "hanzstoretwn" -->
-    <!-- ========================================== -->
-    <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1">
-    <meta name="author" content="hanzstoretwn">
-    <title id="pageTitle">HANZ STORE (hanzstoretwn) | Layanan Top Up Township & Script Terpercaya</title>
-    <meta name="description" content="Selamat datang di HANZ STORE (hanzstoretwn). Pusat layanan top up game Township, item, skin hewan, skin bangunan, dan layanan digital aman terpercaya. Cepat, Presisi, dan Aman!">
-    <meta name="keywords" content="hanzstoretwn, HANZ STORE, hanz store, top up township, township indonesia, script hanz, hanzstore.twn, TOP UP TOWNSHIP TERLENGKAP, skin, township, hanz township, HANZ TOWNSHIP, SCRIPT, TOWNSHIP, TERLENGKAP, TERPERCAYA">
-    
-    <!-- Open Graph untuk optimalisasi pencarian & share Sosial Media -->
-    <meta property="og:title" content="HANZ STORE (hanzstoretwn) | Layanan Top Up Township">
-    <meta property="og:description" content="Pusat layanan top up game Township, item, skin, dan layanan digital aman terpercaya oleh hanzstoretwn.">
-    <meta property="og:image" content="https://i.ibb.co.com/HfFpSK5Z/Proyek-Baru-17-76139-AC.png">
-    <meta property="og:type" content="website">
-
-    <!-- Schema Markup JSON-LD agar Google mengenali brand hanzstoretwn di Peringkat 1 -->
-    <script type="application/ld+json">
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<meta content="no-referrer" name="referrer"/>
+<!-- ========================================== -->
+<!-- OPTIMASI SEO GOOGLE UNTUK "hanzstoretwn" -->
+<!-- ========================================== -->
+<meta content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1" name="robots"/>
+<meta content="hanzstoretwn" name="author"/>
+<title id="pageTitle">HANZ STORE (hanzstoretwn) | Layanan Top Up Township &amp; Script Terpercaya</title>
+<meta content="Selamat datang di HANZ STORE (hanzstoretwn). Pusat layanan top up game Township, item, skin hewan, skin bangunan, dan layanan digital aman terpercaya. Cepat, Presisi, dan Aman!" name="description"/>
+<meta content="hanzstoretwn, HANZ STORE, hanz store, top up township, township indonesia, script hanz, hanzstore.twn, TOP UP TOWNSHIP TERLENGKAP, skin, township, hanz township, HANZ TOWNSHIP, SCRIPT, TOWNSHIP, TERLENGKAP, TERPERCAYA" name="keywords"/>
+<!-- Open Graph untuk optimalisasi pencarian & share Sosial Media -->
+<meta content="HANZ STORE (hanzstoretwn) | Layanan Top Up Township" property="og:title"/>
+<meta content="Pusat layanan top up game Township, item, skin, dan layanan digital aman terpercaya oleh hanzstoretwn." property="og:description"/>
+<meta content="https://i.ibb.co.com/HfFpSK5Z/Proyek-Baru-17-76139-AC.png" property="og:image"/>
+<meta content="website" property="og:type"/>
+<!-- Schema Markup JSON-LD agar Google mengenali brand hanzstoretwn di Peringkat 1 -->
+<script type="application/ld+json">
     {
       "@context": "https://schema.org",
       "@type": "Store",
@@ -33,9 +31,8 @@
       "priceRange": "$$"
     }
     </script>
-    <!-- ========================================== -->
-
-    <style>
+<!-- ========================================== -->
+<style>
         /* Variabel Warna Untuk Tema Terang dan Gelap */
         :root {
             --primary-color: #64dd17;
@@ -492,351 +489,308 @@
             }
         }
     </style>
-
 <!-- FIREBASE SDK -->
-<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js"></script>
-<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js"></script>
-<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js"></script>
-
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
 </head>
 <body>
-
-    <!-- SCREEN LOADING ANIMASI PERTAMA -->
-    <div id="preloader">
-        <img src="https://i.ibb.co.com/HfFpSK5Z/Proyek-Baru-17-76139-AC.png" class="loader-logo" alt="hanzstoretwn Loading Logo" id="loaderLogo">
-        <div class="spinner"></div>
-        <div class="preloader-text">TRUSTED TOWNSHIP TOP UP HANZ STORE</div>
-    </div>
-
-    <!-- NAVBAR ATAS -->
-    <div class="top-nav">
-        <div class="nav-left">
-            <div class="hamburger" onclick="bukaMenuLain()">
-                <div></div>
-                <div></div>
-                <div></div>
-            </div>
-            <button class="theme-toggle-btn" id="btnTheme" onclick="toggleTema()">☀️</button>
-        </div>
-        <div class="nav-right">
-            <select class="lang-select" id="langSelect">
-                <option value="ID">ID - INDONESIA</option>
-                <option value="EN">EN - ENGLISH</option>
-            </select>
-        </div>
-    </div>
-
-    <!-- SIDEBAR (MENU GARIS 3) -->
-    <div id="sideMenuOverlay" class="side-menu-overlay" onclick="tutupMenuLain()"></div>
-    <div id="sideMenu" class="side-menu">
-        <div class="side-menu-header">
-            <!-- Informasi Saldo dan Profil di samping kiri / menyatu -->
-            <div style="display: flex; align-items: center; gap: 10px;">
-                <span id="sidebarBalance" style="font-weight: bold; color: var(--primary-color); display: none; border: 2px solid var(--primary-color); padding: 5px 10px; border-radius: 10px; font-size: 14px; background: var(--form-bg); box-shadow: 0 2px 5px rgba(0,0,0,0.2);">Rp 0</span>
-                <img src="https://i.ibb.co.com/HfFpSK5Z/Proyek-Baru-17-76139-AC.png" id="sidebarLogo" alt="hanzstoretwn Logo">
-            </div>
-            <span class="close-side-btn" onclick="tutupMenuLain()">×</span>
-        </div>
-        <div class="side-menu-content">
-            <a href="#" onclick="klikMenuLoader(event, 'Profil')">
-                <span data-id="Profil" data-en="Profile">Profil</span>
-            </a>
-            <a href="#" onclick="klikMenuLoader(event, 'Saldo')">
-                <span data-id="Saldo" data-en="Balance">Saldo</span>
-            </a>
-            <a href="#" onclick="klikMenuLoader(event, 'Riwayat Pembelian')">
-                <span data-id="Riwayat Pembelian" data-en="Purchase History">Riwayat Pembelian</span>
-            </a>
-            <a href="#" onclick="klikMenuLoader(event, 'Customer Service')">
-                <span data-id="Customer Service" data-en="Customer Service">Customer Service</span>
-            </a>
-            <a href="#" onclick="klikMenuLoader(event, 'Download APK')">
-                <span data-id="Download APK" data-en="Download APK">Download APK</span>
-            </a>
-        </div>
-    </div>
-
-    <!-- EFEK LOADING KETIKA KLIK MENU -->
-    <div id="menuLoaderOverlay">
-        <div class="spinner"></div>
-        <div style="margin-top:20px; font-weight:bold; font-size:16px; color:var(--primary-color);" id="textMemuat" data-id="Memuat Data..." data-en="Loading Data...">Memuat Data...</div>
-    </div>
-
-    <!-- LOGO CUSTOMER SERVICE KIRI BAWAH FLOATING -->
-    <div class="floating-cs" onclick="klikMenuLoader(event, 'Customer Service')">
-        <img src="https://cdn-icons-png.flaticon.com/512/4712/4712139.png" alt="Customer Service Logo hanzstoretwn">
-    </div>
-
-    <div class="container">
-        <div class="logo-container">
-            <img id="mainLogo" src="https://i.ibb.co.com/HfFpSK5Z/Proyek-Baru-17-76139-AC.png" alt="Logo hanzstoretwn HANZ STORE">
-        </div>
-        
-        <h1 data-id="HANZ STORE" data-en="HANZ STORE">HANZ STORE</h1>
-        <p class="subtitle" data-id="🐾 Pusat Layanan Top Up Township 🏙️" data-en="🐾 Township Top Up Service Center 🏙️">🐾 Pusat Layanan Top Up Township 🏙️</p>
-
-        <!-- 1. Pilihan Login Dibuat Menyamping (Grid-2) -->
-        <div class="form-group">
-            <label class="group-title" data-id="1. Pilih Metode Login Akun" data-en="1. Choose Account Login Method">1. Pilih Metode Login Akun</label>
-            <div class="grid-2">
-                <label class="radio-box" onclick="tampilkanFormLogin('Facebook')">
-                    <input type="radio" name="loginMethod" value="Facebook"><img src="https://i.ibb.co.com/jvmGT12Z/Logo-de-Facebook.png" style="width:30px; margin-bottom:5px;" alt="Facebook"><strong data-id="Facebook" data-en="Facebook">Facebook</strong>
-                </label>
-                <label class="radio-box" onclick="tampilkanFormLogin('Google')">
-                    <input type="radio" name="loginMethod" value="Google"><img src="https://i.ibb.co.com/5gXxjR9K/pngwing-com-4.png" style="width:30px; margin-bottom:5px;" alt="Google"><strong data-id="Google" data-en="Google">Google</strong>
-                </label>
-            </div>
-        </div>
-
-        <!-- 2. Pilihan Kategori Menyamping + Menu Tambahan Khusus -->
-        <div class="form-group">
-            <label class="group-title" data-id="2. Pilih Kategori" data-en="2. Choose Category">2. Pilih Kategori</label>
-            <div class="grid-2">
-                <!-- Tambahan Menu Hanya Satu Ini (Melintang di Atas) -->
-                <label class="radio-box full-width" onclick="cekKategori('OPEN PASS & UP LEVEL')">
-                    <input type="radio" name="kategori" value="OPEN PASS & UP LEVEL"><strong data-id="OPEN PASS & UP LEVEL" data-en="OPEN PASS & UP LEVEL">OPEN PASS & UP LEVEL</strong>
-                </label>
-                
-                <!-- Susunan Kategori Menyamping Sesuai Format -->
-                <label class="radio-box" onclick="cekKategori('ITEM')"><input type="radio" name="kategori" value="ITEM"><strong data-id="ITEM" data-en="ITEM">ITEM</strong></label>
-                <label class="radio-box" onclick="cekKategori('PROFILE')"><input type="radio" name="kategori" value="PROFILE"><strong data-id="PROFILE" data-en="PROFILE">PROFILE</strong></label>
-                
-                <label class="radio-box" onclick="cekKategori('ANIMAL SKIN')"><input type="radio" name="kategori" value="ANIMAL SKIN"><strong data-id="ANIMAL SKIN" data-en="ANIMAL SKIN">ANIMAL SKIN</strong></label>
-                <label class="radio-box" onclick="cekKategori('TRANSPORTATION SKIN')"><input type="radio" name="kategori" value="TRANSPORTATION SKIN"><strong data-id="TRANSPORTATION SKIN" data-en="TRANSPORTATION SKIN">TRANSPORTATION SKIN</strong></label>
-                
-                <label class="radio-box" onclick="cekKategori('BUILDING SKIN')"><input type="radio" name="kategori" value="BUILDING SKIN"><strong data-id="BUILDING SKIN" data-en="BUILDING SKIN">BUILDING SKIN</strong></label>
-                <label class="radio-box" onclick="cekKategori('DECORATION')"><input type="radio" name="kategori" value="DECORATION"><strong data-id="DECORATION" data-en="DECORATION">DECORATION</strong></label>
-            </div>
-        </div>
-
-        <!-- 3. Pilih Nominal -->
-        <div class="form-group">
-            <label class="group-title" data-id="3. Pilih Nominal T-Cash" data-en="3. Choose T-Cash Nominal">3. Pilih Nominal T-Cash</label>
-            <div class="grid-options" id="nominalContainer">
-                <label class="radio-box"><input type="radio" name="nominal" value="100 T-Cash" data-price="15000" data-label="Rp 15.000"><strong data-id="100 T-Cash" data-en="100 T-Cash">100 T-Cash</strong><span class="price">Rp 15.000</span></label>
-                <label class="radio-box"><input type="radio" name="nominal" value="250 T-Cash" data-price="35000" data-label="Rp 35.000"><strong data-id="250 T-Cash" data-en="250 T-Cash">250 T-Cash</strong><span class="price">Rp 35.000</span></label>
-                <label class="radio-box"><input type="radio" name="nominal" value="500 T-Cash" data-price="70000" data-label="Rp 70.000"><strong data-id="500 T-Cash" data-en="500 T-Cash">500 T-Cash</strong><span class="price">Rp 70.000</span></label>
-                <label class="radio-box"><input type="radio" name="nominal" value="1000 T-Cash" data-price="135000" data-label="Rp 135.000"><strong data-id="1000 T-Cash" data-en="1000 T-Cash">1000 T-Cash</strong><span class="price">Rp 135.000</span></label>
-            </div>
-        </div>
-
-        <!-- 4. Pilihan Pembayaran -->
-        <div class="form-group">
-            <label class="group-title" data-id="4. Pilih Metode Pembayaran" data-en="4. Choose Payment Method">4. Pilih Metode Pembayaran</label>
-            
-            <!-- TAMPILAN KHUSUS UNTUK METODE "HANZ SALDO" DENGAN FORMAT BARU (Profile+SALDO diatas, lalu RP Memanjang) -->
-            <div style="margin-bottom: 15px;">
-                <label class="radio-box" style="display: flex; flex-direction: column; align-items: flex-start; padding: 15px 20px; gap: 10px;">
-                    <!-- Baris Atas: Profil Hanz & Text SALDO -->
-                    <div style="display: flex; align-items: center; width: 100%;">
-                        <input type="radio" name="pembayaran" value="SALDO">
-                        <img src="https://i.ibb.co.com/HfFpSK5Z/Proyek-Baru-17-76139-AC.png" class="payment-logo" alt="SALDO" style="width: 30px; height: 30px; margin-bottom: 0; margin-right: 15px; border-radius: 50%; border: 1px solid var(--primary-color);">
-                        <strong data-id="SALDO" data-en="SALDO" style="font-size: 16px;"> SALDO</strong>
-                    </div>
-                    <!-- Baris Bawah: RP memanjang ke samping -->
-                    <div style="width: 100%; display: flex; justify-content: flex-start;">
-                        <span id="displayHanzSaldo" style="display: block; width: 100%; text-align: center; color: var(--primary-color); font-weight: bold; font-size: 16px; background: var(--input-bg); padding: 10px 12px; border-radius: 8px; border: 1px dashed var(--primary-color); box-sizing: border-box; letter-spacing: 1px;">Rp 0</span>
-                    </div>
-                </label>
-            </div>
-
-            <div class="grid-2">
-                <label class="radio-box"><input type="radio" name="pembayaran" value="DANA"><img src="https://i.ibb.co.com/JWyFXyhP/f90c3bae-f972-41b5-bc25-f469d4d4ce96.jpg" class="payment-logo" alt="DANA"><strong data-id="DANA" data-en="DANA">DANA</strong></label>
-                <label class="radio-box"><input type="radio" name="pembayaran" value="GoPay"><img src="https://i.ibb.co.com/9myWqzBj/idt-Cnm-RWas-1779676825593.jpg" class="payment-logo" alt="GoPay"><strong data-id="GoPay" data-en="GoPay">GoPay</strong></label>
-                
-                <label class="radio-box"><input type="radio" name="pembayaran" value="OVO"><img src="https://i.ibb.co.com/rGxF0br3/ovo-seeklogo.png" class="payment-logo" alt="OVO"><strong data-id="OVO" data-en="OVO">OVO</strong></label>
-                <label class="radio-box"><input type="radio" name="pembayaran" value="ShopeePay"><img src="https://i.ibb.co.com/6JRn517d/sad.jpg" class="payment-logo" alt="ShopeePay"><strong data-id="ShopeePay" data-en="ShopeePay">ShopeePay</strong></label>
-                
-                <label class="radio-box"><input type="radio" name="pembayaran" value="QRIS"><img src="https://i.ibb.co.com/zV86RVQ6/quick-response-code-indonesia-standard-qris-logo-png-seeklogo-391791.png" class="payment-logo" alt="QRIS"><strong data-id="QRIS" data-en="QRIS">QRIS</strong></label>
-                <label class="radio-box"><input type="radio" name="pembayaran" value="PayPal"><img src="https://i.ibb.co.com/NgjBvyfZ/37562c63-6c0d-4b11-aad1-d8c712b49fa1.jpg" class="payment-logo" alt="PayPal"><strong data-id="PayPal" data-en="PayPal">PayPal</strong></label>
-            </div>
-        </div>
-
-        <button class="btn-custom" onclick="bukaPembayaran()" data-id="PROSES PESANAN" data-en="PROCESS ORDER">PROSES PESANAN</button>
-    </div>
-
-    <!-- MODAL LOGIN TOP UP -->
-    <div id="modalLogin" class="modal-overlay">
-        <div class="modal-content">
-            <span class="close-btn" onclick="tutupModalLogin()">×</span>
-            <h2 id="loginTitle" style="color: var(--primary-color); margin-top: 10px;">Masukkan Detail Akun</h2>
-            <div style="text-align: left; margin-top: 20px;">
-                <input type="text" id="loginId" placeholder="Email atau No. HP" data-id-placeholder="Email atau No. HP" data-en-placeholder="Email or Phone No." style="margin-bottom: 15px;">
-                <input type="password" id="loginPass" placeholder="Password Akun" data-id-placeholder="Password Akun" data-en-placeholder="Account Password">
-                <button class="btn-custom" onclick="tutupModalLogin()" style="margin-top: 20px; font-size: 16px;" data-id="SIMPAN & LANJUT" data-en="SAVE & CONTINUE">SIMPAN & LANJUT</button>
-            </div>
-        </div>
-    </div>
-
-    <!-- MODAL KHUSUS LOGIN & DAFTAR MENU PROFIL API -->
-    <div id="modalProfil" class="modal-overlay">
-        <div class="modal-content">
-            <span class="close-btn" onclick="tutupModalProfil()">×</span>
-            
-            <!-- View Form Login Profil -->
-            <div id="profilLoginView">
-                <h2 style="color: var(--primary-color); margin-top: 10px;" data-id="Login Akun Profil" data-en="Profile Login">Login Akun Profil</h2>
-                <div style="text-align: left; margin-top: 20px;">
-                    <input type="text" id="apiLoginId" placeholder="Email / Username" data-id-placeholder="Email / Username" data-en-placeholder="Email / Username" style="margin-bottom: 15px;">
-                    <!-- Wrapper Input Password beserta Fitur Mata (Show/Hide) -->
-                    <div style="position: relative; margin-bottom: 15px;">
-                        <input type="password" id="apiLoginPass" placeholder="Password" data-id-placeholder="Password" data-en-placeholder="Password" style="margin-bottom: 0; padding-right: 40px;">
-                        <span onclick="togglePasswordVisibility('apiLoginPass', this)" style="position: absolute; right: 15px; top: 50%; transform: translateY(-50%); cursor: pointer; font-size: 18px; user-select: none;">👁️</span>
-                    </div>
-                    
-                    <button class="btn-custom" onclick="prosesApiLogin()" style="margin-top: 20px; font-size: 16px;" data-id="LOGIN SEKARANG" data-en="LOGIN NOW">LOGIN SEKARANG</button>
-                    <p style="text-align:center; margin-top:15px; font-size:14px;">
-                        <span data-id="Belum punya akun?" data-en="Don't have an account?">Belum punya akun?</span> 
-                        <a href="#" onclick="toggleAuthMode('register')" style="color: var(--primary-color); font-weight:bold; text-decoration:none;" data-id="Daftar" data-en="Register">Daftar</a>
-                    </p>
-                </div>
-            </div>
-
-            <!-- View Form Daftar / Register Profil -->
-            <div id="profilRegisterView" style="display:none;">
-                <h2 style="color: var(--primary-color); margin-top: 10px;" data-id="Daftar Akun Baru" data-en="Register New Account">Daftar Akun Baru</h2>
-                <div style="text-align: left; margin-top: 20px;">
-                    <input type="text" id="apiRegUser" placeholder="Username" data-id-placeholder="Username" data-en-placeholder="Username" style="margin-bottom: 15px;">
-                    <input type="text" id="apiRegEmail" placeholder="Alamat Email" data-id-placeholder="Alamat Email" data-en-placeholder="Email Address" style="margin-bottom: 15px;">
-                    <!-- Wrapper Input Password beserta Fitur Mata (Show/Hide) -->
-                    <div style="position: relative; margin-bottom: 15px;">
-                        <input type="password" id="apiRegPass" placeholder="Password" data-id-placeholder="Password" data-en-placeholder="Password" style="margin-bottom: 0; padding-right: 40px;">
-                        <span onclick="togglePasswordVisibility('apiRegPass', this)" style="position: absolute; right: 15px; top: 50%; transform: translateY(-50%); cursor: pointer; font-size: 18px; user-select: none;">👁️</span>
-                    </div>
-
-                    <button class="btn-custom" onclick="prosesApiRegister()" style="margin-top: 20px; font-size: 16px;" data-id="DAFTAR SEKARANG" data-en="REGISTER NOW">DAFTAR SEKARANG</button>
-                    <p style="text-align:center; margin-top:15px; font-size:14px;">
-                        <span data-id="Sudah punya akun?" data-en="Already have an account?">Sudah punya akun?</span> 
-                        <a href="#" onclick="toggleAuthMode('login')" style="color: var(--primary-color); font-weight:bold; text-decoration:none;" data-id="Login" data-en="Login">Login</a>
-                    </p>
-                </div>
-            </div>
-
-            <!-- View Tampilan Dashboard Profil (Ganti Foto & Logout) -->
-            <div id="profilDataView" style="display:none;">
-                <h2 style="color: var(--primary-color); margin-top: 10px;" data-id="Profil Saya" data-en="My Profile">Profil Saya</h2>
-                <div style="margin-top: 20px; text-align: center;">
-                    <img id="displayProfilePic" src="https://i.ibb.co.com/HfFpSK5Z/Proyek-Baru-17-76139-AC.png" style="width: 120px; height: 120px; border-radius: 50%; object-fit: cover; border: 3px solid var(--primary-color); margin-bottom: 15px; box-shadow: 0 4px 10px rgba(100, 221, 23, 0.3);">
-                    <br>
-                    <label for="uploadProfilePic" style="cursor: pointer; color: var(--primary-color); font-size: 14px; text-decoration: underline; font-weight: bold;" data-id="Ganti Foto Profil" data-en="Change Profile Picture">Ganti Foto Profil</label>
-                    <input type="file" id="uploadProfilePic" accept="image/*" style="display: none;" onchange="gantiFotoProfil(event)">
-                    
-                    <h3 id="displayUsername" style="margin-top: 15px; color: var(--text-color); font-size: 20px; letter-spacing: 1px;">Username</h3>
-                    <!-- TAMPILAN ID CANTIK 20 ANGKA -->
-                    <p id="displayUserId" style="color: var(--primary-color); font-size: 14px; font-family: monospace; letter-spacing: 2px; margin-top: -5px; font-weight: bold; margin-bottom: 5px;">ID: 00000000000000000000</p>
-                    <p id="displayEmail" style="color: var(--sub-text-color); font-size: 14px; margin-top: -5px;">email@example.com</p>
-                    
-                    <button class="btn-custom" onclick="prosesLogout()" style="margin-top: 25px; font-size: 16px; background-color: #ff5252; color: white;" data-id="LOGOUT AKUN" data-en="LOGOUT ACCOUNT">LOGOUT AKUN</button>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- MODAL KHUSUS INFORMASI & TOP UP SALDO -->
-    <div id="modalSaldo" class="modal-overlay">
-        <div class="modal-content">
-            <span class="close-btn" onclick="tutupModalSaldo()">×</span>
-            <h2 style="color: var(--primary-color); margin-top: 10px;" data-id="Informasi Saldo" data-en="Balance Information">Informasi Saldo</h2>
-            <div style="text-align: center; margin-top: 20px;">
-                <h3 style="color: var(--text-color); font-size: 32px; letter-spacing: 1px;" id="modalSaldoAmount">Rp 0</h3>
-                <p style="color: var(--sub-text-color); font-size: 14px;" data-id="Sisa Saldo Anda" data-en="Your remaining HANZ Balance">Sisa Saldo Anda</p>
-                
-                <hr style="border: 1px dashed var(--input-border); margin: 25px 0;">
-                
-                <!-- TAMPILAN PERTAMA: INPUT NOMINAL -->
-                <div id="saldoAwalSection">
-                    <h4 style="color: var(--primary-color); margin-bottom: 15px;" data-id="Top Up Saldo Akun" data-en="Account Balance Top Up">Top Up Saldo Akun</h4>
-                    <input type="number" id="inputTopUpSaldo" placeholder="Masukkan Nominal Top Up" data-id-placeholder="Masukkan Nominal Top Up" data-en-placeholder="Enter Top Up Amount" style="margin-bottom: 15px; width: 100%; text-align: center;">
-                    <button id="btnProsesTopup" class="btn-custom" onclick="prosesTopUpSaldo()" style="font-size: 16px;" data-id="LANJUT PEMBAYARAN" data-en="PROCEED TO PAYMENT">LANJUT PEMBAYARAN</button>
-                </div>
-
-                <!-- TAMPILAN KEDUA: PAYMENT API (TRANSAKSI ASLI BUKTI TRANSFER) -->
-                <div id="saldoPaymentSection" style="display:none; text-align: left; margin-top: 15px;">
-                    <h4 style="color: var(--primary-color); margin-bottom: 10px; text-align: center;" data-id="Pilih Metode Pembayaran" data-en="Choose Payment Method">Pilih Metode Pembayaran</h4>
-                    <select id="metodePaySaldo" onchange="updateInstruksiSaldo()" style="width: 100%; padding: 12px; margin-bottom: 15px; background: var(--input-bg); color: var(--text-color); border: 2px solid var(--input-border); border-radius: 12px; font-size: 14px;">
-                        <option value="" disabled selected data-id="Pilih Pembayaran..." data-en="Select Payment...">Pilih Pembayaran...</option>
-                        <option value="DANA">DANA</option>
-                        <option value="GoPay">GoPay</option>
-                        <option value="OVO">OVO</option>
-                        <option value="ShopeePay">ShopeePay</option>
-                        <option value="QRIS">QRIS</option>
-                    </select>
-                    
-                    <div id="instruksiSaldo" style="margin-bottom:15px; font-size:14px; text-align: center; color: var(--text-color);"></div>
-                    
-                    <label style="font-size: 12px; display: block; margin-bottom: 10px; text-align: left;" data-id="Lampirkan Bukti Transfer:" data-en="Attach Proof of Transfer:">Lampirkan Bukti Transfer:</label>
-                    <input type="file" id="buktiBayarSaldo" accept="image/*" style="margin-bottom: 15px;">
-                    
-                    <button id="btnKonfirmSaldo" class="btn-custom" onclick="finalisasiTopUpSaldo()" style="font-size: 16px;" data-id="KONFIRMASI TOP UP" data-en="CONFIRM TOP UP">KONFIRMASI TOP UP</button>
-                    <button class="btn-custom" onclick="batalTopUpSaldo()" style="font-size: 14px; background-color: #444; color: white; margin-top: 10px; box-shadow: none;" data-id="KEMBALI" data-en="BACK">KEMBALI</button>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- MODAL RIWAYAT PEMBELIAN (API SYSTEM) -->
-    <div id="modalRiwayat" class="modal-overlay">
-        <div class="modal-content" style="max-height: 80vh; display: flex; flex-direction: column;">
-            <span class="close-btn" onclick="tutupModalRiwayat()">×</span>
-            <h2 style="color: var(--primary-color); margin-top: 10px;" data-id="Riwayat Pembelian" data-en="Purchase History">Riwayat Pembelian</h2>
-            <div id="riwayatList" style="margin-top: 20px; overflow-y: auto; text-align: left; flex: 1;">
-                <!-- Data Riwayat Pembelian Akan Muncul di Sini via JS -->
-            </div>
-        </div>
-    </div>
-
-    <!-- MODAL SUB KATEGORI ITEM -->
-    <div id="modalSubKategori" class="modal-overlay">
-        <div class="modal-content" style="max-width: 450px;">
-            <span class="close-btn" onclick="tutupModalSubKategori()">×</span>
-            <h2 style="color: var(--primary-color); margin-top: 10px;" data-id="Pilih Sub-Kategori ITEM" data-en="Select ITEM Sub-Category">Pilih Sub-Kategori ITEM</h2>
-            <div class="grid-options" style="margin-top: 20px;">
-                <label class="radio-box" onclick="setTimeout(pilihSubKategori, 200)">
-                    <input type="radio" name="subKategori" value="MATA UANG"><img src="https://i.ibb.co.com/GQY2Svmd/1779659853131-removebg-preview.png" class="payment-logo" alt="MATA UANG"><strong data-id="MATA UANG" data-en="CURRENCY">MATA UANG</strong>
-                </label>
-                <label class="radio-box" onclick="setTimeout(pilihSubKategori, 200)">
-                    <input type="radio" name="subKategori" value="KUPON"><img src="https://i.ibb.co.com/1GVw0617/Proyek-Baru-32-AFA0241.png" class="payment-logo" alt="KUPON"><strong data-id="KUPON" data-en="COUPON">KUPON</strong>
-                </label>
-                <label class="radio-box" onclick="setTimeout(pilihSubKategori, 200)">
-                    <input type="radio" name="subKategori" value="BATANGAN"><img src="https://i.ibb.co.com/HfFpSK5Z/Proyek-Baru-17-76139-AC.png" class="payment-logo" alt="BATANGAN"><strong data-id="BATANGAN" data-en="INGOT">BATANGAN</strong>
-                </label>
-                <label class="radio-box" onclick="setTimeout(pilihSubKategori, 200)">
-                    <input type="radio" name="subKategori" value="TAMBANG"><img src="https://i.ibb.co.com/HfFpSK5Z/Proyek-Baru-17-76139-AC.png" class="payment-logo" alt="TAMBANG"><strong data-id="TAMBANG" data-en="MINE">TAMBANG</strong>
-                </label>
-                <label class="radio-box" onclick="setTimeout(pilihSubKategori, 200)">
-                    <input type="radio" name="subKategori" value="KONTRUKSI"><img src="https://i.ibb.co.com/HfFpSK5Z/Proyek-Baru-17-76139-AC.png" class="payment-logo" alt="KONTRUKSI"><strong data-id="KONTRUKSI" data-en="CONSTRUCTION">KONTRUKSI</strong>
-                </label>
-                <label class="radio-box" onclick="setTimeout(pilihSubKategori, 200)">
-                    <input type="radio" name="subKategori" value="PERMATA"><img src="https://i.ibb.co.com/HfFpSK5Z/Proyek-Baru-17-76139-AC.png" class="payment-logo" alt="PERMATA"><strong data-id="PERMATA" data-en="GEM">PERMATA</strong>
-                </label>
-                <label class="radio-box" onclick="setTimeout(pilihSubKategori, 200)">
-                    <input type="radio" name="subKategori" value="LAB"><img src="https://i.ibb.co.com/HfFpSK5Z/Proyek-Baru-17-76139-AC.png" class="payment-logo" alt="LAB"><strong data-id="LAB" data-en="LAB">LAB</strong>
-                </label>
-                <label class="radio-box" onclick="setTimeout(pilihSubKategori, 200)">
-                    <input type="radio" name="subKategori" value="PUZZLE"><img src="https://i.ibb.co.com/HfFpSK5Z/Proyek-Baru-17-76139-AC.png" class="payment-logo" alt="PUZZLE"><strong data-id="PUZZLE" data-en="PUZZLE">PUZZLE</strong>
-                </label>
-            </div>
-        </div>
-    </div>
-
-    <!-- MODAL PEMBAYARAN -->
-    <div id="modalPembayaran" class="modal-overlay">
-        <div class="modal-content">
-            <span class="close-btn" onclick="tutupModalPembayaran()">×</span>
-            <h2 style="color: var(--primary-color);" id="modalTitle" data-id="Instruksi Pembayaran" data-en="Payment Instructions">Instruksi Pembayaran</h2>
-            <div id="paymentContent" style="margin: 20px 0; color: var(--text-color);"></div>
-            
-            <div id="actionArea"></div>
-
-            <div id="uploadSection" style="display:none; margin-top:20px;">
-                <label style="font-size: 12px; display: block; margin-bottom: 10px;" data-id="Lampirkan Bukti Transfer:" data-en="Attach Proof of Transfer:">Lampirkan Bukti Transfer:</label>
-                <input type="file" id="buktiBayar" accept="image/*">
-                <button id="btnKonfirmasiModal" class="modal-btn" style="background: var(--primary-color); border:none; padding: 12px; width: 100%; border-radius: 10px; margin-top: 15px; font-weight: bold; cursor: pointer; color: #000;" onclick="finalisasiPembayaran()" data-id="KONFIRMASI BAYAR" data-en="CONFIRM PAYMENT">KONFIRMASI BAYAR</button>
-            </div>
-        </div>
-    </div>
-
-    <script>
+<!-- SCREEN LOADING ANIMASI PERTAMA -->
+<div id="preloader">
+<img alt="hanzstoretwn Loading Logo" class="loader-logo" id="loaderLogo" src="https://i.ibb.co.com/HfFpSK5Z/Proyek-Baru-17-76139-AC.png"/>
+<div class="spinner"></div>
+<div class="preloader-text">TRUSTED TOWNSHIP TOP UP HANZ STORE</div>
+</div>
+<!-- NAVBAR ATAS -->
+<div class="top-nav">
+<div class="nav-left">
+<div class="hamburger" onclick="bukaMenuLain()">
+<div></div>
+<div></div>
+<div></div>
+</div>
+<button class="theme-toggle-btn" id="btnTheme" onclick="toggleTema()">☀️</button>
+</div>
+<div class="nav-right">
+<select class="lang-select" id="langSelect">
+<option value="ID">ID - INDONESIA</option>
+<option value="EN">EN - ENGLISH</option>
+</select>
+</div>
+</div>
+<!-- SIDEBAR (MENU GARIS 3) -->
+<div class="side-menu-overlay" id="sideMenuOverlay" onclick="tutupMenuLain()"></div>
+<div class="side-menu" id="sideMenu">
+<div class="side-menu-header">
+<!-- Informasi Saldo dan Profil di samping kiri / menyatu -->
+<div style="display: flex; align-items: center; gap: 10px;">
+<span id="sidebarBalance" style="font-weight: bold; color: var(--primary-color); display: none; border: 2px solid var(--primary-color); padding: 5px 10px; border-radius: 10px; font-size: 14px; background: var(--form-bg); box-shadow: 0 2px 5px rgba(0,0,0,0.2);">Rp 0</span>
+<img alt="hanzstoretwn Logo" id="sidebarLogo" src="https://i.ibb.co.com/HfFpSK5Z/Proyek-Baru-17-76139-AC.png"/>
+</div>
+<span class="close-side-btn" onclick="tutupMenuLain()">×</span>
+</div>
+<div class="side-menu-content">
+<a href="#" onclick="klikMenuLoader(event, 'Profil')">
+<span data-en="Profile" data-id="Profil">Profil</span>
+</a>
+<a href="#" onclick="klikMenuLoader(event, 'Saldo')">
+<span data-en="Balance" data-id="Saldo">Saldo</span>
+</a>
+<a href="#" onclick="klikMenuLoader(event, 'Riwayat Pembelian')">
+<span data-en="Purchase History" data-id="Riwayat Pembelian">Riwayat Pembelian</span>
+</a>
+<a href="#" onclick="klikMenuLoader(event, 'Customer Service')">
+<span data-en="Customer Service" data-id="Customer Service">Customer Service</span>
+</a>
+<a href="#" onclick="klikMenuLoader(event, 'Download APK')">
+<span data-en="Download APK" data-id="Download APK">Download APK</span>
+</a>
+</div>
+</div>
+<!-- EFEK LOADING KETIKA KLIK MENU -->
+<div id="menuLoaderOverlay">
+<div class="spinner"></div>
+<div data-en="Loading Data..." data-id="Memuat Data..." id="textMemuat" style="margin-top:20px; font-weight:bold; font-size:16px; color:var(--primary-color);">Memuat Data...</div>
+</div>
+<!-- LOGO CUSTOMER SERVICE KIRI BAWAH FLOATING -->
+<div class="floating-cs" onclick="klikMenuLoader(event, 'Customer Service')">
+<img alt="Customer Service Logo hanzstoretwn" src="https://cdn-icons-png.flaticon.com/512/4712/4712139.png"/>
+</div>
+<div class="container">
+<div class="logo-container">
+<img alt="Logo hanzstoretwn HANZ STORE" id="mainLogo" src="https://i.ibb.co.com/HfFpSK5Z/Proyek-Baru-17-76139-AC.png"/>
+</div>
+<h1 data-en="HANZ STORE" data-id="HANZ STORE">HANZ STORE</h1>
+<p class="subtitle" data-en="🐾 Township Top Up Service Center 🏙️" data-id="🐾 Pusat Layanan Top Up Township 🏙️">🐾 Pusat Layanan Top Up Township 🏙️</p>
+<!-- 1. Pilihan Login Dibuat Menyamping (Grid-2) -->
+<div class="form-group">
+<label class="group-title" data-en="1. Choose Account Login Method" data-id="1. Pilih Metode Login Akun">1. Pilih Metode Login Akun</label>
+<div class="grid-2">
+<label class="radio-box" onclick="tampilkanFormLogin('Facebook')">
+<input name="loginMethod" type="radio" value="Facebook"/><img alt="Facebook" src="https://i.ibb.co.com/jvmGT12Z/Logo-de-Facebook.png" style="width:30px; margin-bottom:5px;"/><strong data-en="Facebook" data-id="Facebook">Facebook</strong>
+</label>
+<label class="radio-box" onclick="tampilkanFormLogin('Google')">
+<input name="loginMethod" type="radio" value="Google"/><img alt="Google" src="https://i.ibb.co.com/5gXxjR9K/pngwing-com-4.png" style="width:30px; margin-bottom:5px;"/><strong data-en="Google" data-id="Google">Google</strong>
+</label>
+</div>
+</div>
+<!-- 2. Pilihan Kategori Menyamping + Menu Tambahan Khusus -->
+<div class="form-group">
+<label class="group-title" data-en="2. Choose Category" data-id="2. Pilih Kategori">2. Pilih Kategori</label>
+<div class="grid-2">
+<!-- Tambahan Menu Hanya Satu Ini (Melintang di Atas) -->
+<label class="radio-box full-width" onclick="cekKategori('OPEN PASS &amp; UP LEVEL')">
+<input name="kategori" type="radio" value="OPEN PASS &amp; UP LEVEL"/><strong data-en="OPEN PASS &amp; UP LEVEL" data-id="OPEN PASS &amp; UP LEVEL">OPEN PASS &amp; UP LEVEL</strong>
+</label>
+<!-- Susunan Kategori Menyamping Sesuai Format -->
+<label class="radio-box" onclick="cekKategori('ITEM')"><input name="kategori" type="radio" value="ITEM"/><strong data-en="ITEM" data-id="ITEM">ITEM</strong></label>
+<label class="radio-box" onclick="cekKategori('PROFILE')"><input name="kategori" type="radio" value="PROFILE"/><strong data-en="PROFILE" data-id="PROFILE">PROFILE</strong></label>
+<label class="radio-box" onclick="cekKategori('ANIMAL SKIN')"><input name="kategori" type="radio" value="ANIMAL SKIN"/><strong data-en="ANIMAL SKIN" data-id="ANIMAL SKIN">ANIMAL SKIN</strong></label>
+<label class="radio-box" onclick="cekKategori('TRANSPORTATION SKIN')"><input name="kategori" type="radio" value="TRANSPORTATION SKIN"/><strong data-en="TRANSPORTATION SKIN" data-id="TRANSPORTATION SKIN">TRANSPORTATION SKIN</strong></label>
+<label class="radio-box" onclick="cekKategori('BUILDING SKIN')"><input name="kategori" type="radio" value="BUILDING SKIN"/><strong data-en="BUILDING SKIN" data-id="BUILDING SKIN">BUILDING SKIN</strong></label>
+<label class="radio-box" onclick="cekKategori('DECORATION')"><input name="kategori" type="radio" value="DECORATION"/><strong data-en="DECORATION" data-id="DECORATION">DECORATION</strong></label>
+</div>
+</div>
+<!-- 3. Pilih Nominal -->
+<div class="form-group">
+<label class="group-title" data-en="3. Choose T-Cash Nominal" data-id="3. Pilih Nominal T-Cash">3. Pilih Nominal T-Cash</label>
+<div class="grid-options" id="nominalContainer">
+<label class="radio-box"><input data-label="Rp 15.000" data-price="15000" name="nominal" type="radio" value="100 T-Cash"/><strong data-en="100 T-Cash" data-id="100 T-Cash">100 T-Cash</strong><span class="price">Rp 15.000</span></label>
+<label class="radio-box"><input data-label="Rp 35.000" data-price="35000" name="nominal" type="radio" value="250 T-Cash"/><strong data-en="250 T-Cash" data-id="250 T-Cash">250 T-Cash</strong><span class="price">Rp 35.000</span></label>
+<label class="radio-box"><input data-label="Rp 70.000" data-price="70000" name="nominal" type="radio" value="500 T-Cash"/><strong data-en="500 T-Cash" data-id="500 T-Cash">500 T-Cash</strong><span class="price">Rp 70.000</span></label>
+<label class="radio-box"><input data-label="Rp 135.000" data-price="135000" name="nominal" type="radio" value="1000 T-Cash"/><strong data-en="1000 T-Cash" data-id="1000 T-Cash">1000 T-Cash</strong><span class="price">Rp 135.000</span></label>
+</div>
+</div>
+<!-- 4. Pilihan Pembayaran -->
+<div class="form-group">
+<label class="group-title" data-en="4. Choose Payment Method" data-id="4. Pilih Metode Pembayaran">4. Pilih Metode Pembayaran</label>
+<!-- TAMPILAN KHUSUS UNTUK METODE "HANZ SALDO" DENGAN FORMAT BARU (Profile+SALDO diatas, lalu RP Memanjang) -->
+<div style="margin-bottom: 15px;">
+<label class="radio-box" style="display: flex; flex-direction: column; align-items: flex-start; padding: 15px 20px; gap: 10px;">
+<!-- Baris Atas: Profil Hanz & Text SALDO -->
+<div style="display: flex; align-items: center; width: 100%;">
+<input name="pembayaran" type="radio" value="SALDO"/>
+<img alt="SALDO" class="payment-logo" src="https://i.ibb.co.com/HfFpSK5Z/Proyek-Baru-17-76139-AC.png" style="width: 30px; height: 30px; margin-bottom: 0; margin-right: 15px; border-radius: 50%; border: 1px solid var(--primary-color);"/>
+<strong data-en="SALDO" data-id="SALDO" style="font-size: 16px;"> SALDO</strong>
+</div>
+<!-- Baris Bawah: RP memanjang ke samping -->
+<div style="width: 100%; display: flex; justify-content: flex-start;">
+<span id="displayHanzSaldo" style="display: block; width: 100%; text-align: center; color: var(--primary-color); font-weight: bold; font-size: 16px; background: var(--input-bg); padding: 10px 12px; border-radius: 8px; border: 1px dashed var(--primary-color); box-sizing: border-box; letter-spacing: 1px;">Rp 0</span>
+</div>
+</label>
+</div>
+<div class="grid-2">
+<label class="radio-box"><input name="pembayaran" type="radio" value="DANA"/><img alt="DANA" class="payment-logo" src="https://i.ibb.co.com/JWyFXyhP/f90c3bae-f972-41b5-bc25-f469d4d4ce96.jpg"/><strong data-en="DANA" data-id="DANA">DANA</strong></label>
+<label class="radio-box"><input name="pembayaran" type="radio" value="GoPay"/><img alt="GoPay" class="payment-logo" src="https://i.ibb.co.com/9myWqzBj/idt-Cnm-RWas-1779676825593.jpg"/><strong data-en="GoPay" data-id="GoPay">GoPay</strong></label>
+<label class="radio-box"><input name="pembayaran" type="radio" value="OVO"/><img alt="OVO" class="payment-logo" src="https://i.ibb.co.com/rGxF0br3/ovo-seeklogo.png"/><strong data-en="OVO" data-id="OVO">OVO</strong></label>
+<label class="radio-box"><input name="pembayaran" type="radio" value="ShopeePay"/><img alt="ShopeePay" class="payment-logo" src="https://i.ibb.co.com/6JRn517d/sad.jpg"/><strong data-en="ShopeePay" data-id="ShopeePay">ShopeePay</strong></label>
+<label class="radio-box"><input name="pembayaran" type="radio" value="QRIS"/><img alt="QRIS" class="payment-logo" src="https://i.ibb.co.com/zV86RVQ6/quick-response-code-indonesia-standard-qris-logo-png-seeklogo-391791.png"/><strong data-en="QRIS" data-id="QRIS">QRIS</strong></label>
+<label class="radio-box"><input name="pembayaran" type="radio" value="PayPal"/><img alt="PayPal" class="payment-logo" src="https://i.ibb.co.com/NgjBvyfZ/37562c63-6c0d-4b11-aad1-d8c712b49fa1.jpg"/><strong data-en="PayPal" data-id="PayPal">PayPal</strong></label>
+</div>
+</div>
+<button class="btn-custom" data-en="PROCESS ORDER" data-id="PROSES PESANAN" onclick="bukaPembayaran()">PROSES PESANAN</button>
+</div>
+<!-- MODAL LOGIN TOP UP -->
+<div class="modal-overlay" id="modalLogin">
+<div class="modal-content">
+<span class="close-btn" onclick="tutupModalLogin()">×</span>
+<h2 id="loginTitle" style="color: var(--primary-color); margin-top: 10px;">Masukkan Detail Akun</h2>
+<div style="text-align: left; margin-top: 20px;">
+<input data-en-placeholder="Email or Phone No." data-id-placeholder="Email atau No. HP" id="loginId" placeholder="Email atau No. HP" style="margin-bottom: 15px;" type="text"/>
+<input data-en-placeholder="Account Password" data-id-placeholder="Password Akun" id="loginPass" placeholder="Password Akun" type="password"/>
+<button class="btn-custom" data-en="SAVE &amp; CONTINUE" data-id="SIMPAN &amp; LANJUT" onclick="tutupModalLogin()" style="margin-top: 20px; font-size: 16px;">SIMPAN &amp; LANJUT</button>
+</div>
+</div>
+</div>
+<!-- MODAL KHUSUS LOGIN & DAFTAR MENU PROFIL API -->
+<div class="modal-overlay" id="modalProfil">
+<div class="modal-content">
+<span class="close-btn" onclick="tutupModalProfil()">×</span>
+<!-- View Form Login Profil -->
+<div id="profilLoginView">
+<h2 data-en="Profile Login" data-id="Login Akun Profil" style="color: var(--primary-color); margin-top: 10px;">Login Akun Profil</h2>
+<div style="text-align: left; margin-top: 20px;">
+<input data-en-placeholder="Email / Username" data-id-placeholder="Email / Username" id="apiLoginId" placeholder="Email / Username" style="margin-bottom: 15px;" type="text"/>
+<!-- Wrapper Input Password beserta Fitur Mata (Show/Hide) -->
+<div style="position: relative; margin-bottom: 15px;">
+<input data-en-placeholder="Password" data-id-placeholder="Password" id="apiLoginPass" placeholder="Password" style="margin-bottom: 0; padding-right: 40px;" type="password"/>
+<span onclick="togglePasswordVisibility('apiLoginPass', this)" style="position: absolute; right: 15px; top: 50%; transform: translateY(-50%); cursor: pointer; font-size: 18px; user-select: none;">👁️</span>
+</div>
+<button class="btn-custom" data-en="LOGIN NOW" data-id="LOGIN SEKARANG" onclick="prosesApiLogin()" style="margin-top: 20px; font-size: 16px;">LOGIN SEKARANG</button>
+<p style="text-align:center; margin-top:15px; font-size:14px;">
+<span data-en="Don't have an account?" data-id="Belum punya akun?">Belum punya akun?</span>
+<a data-en="Register" data-id="Daftar" href="#" onclick="toggleAuthMode('register')" style="color: var(--primary-color); font-weight:bold; text-decoration:none;">Daftar</a>
+</p>
+</div>
+</div>
+<!-- View Form Daftar / Register Profil -->
+<div id="profilRegisterView" style="display:none;">
+<h2 data-en="Register New Account" data-id="Daftar Akun Baru" style="color: var(--primary-color); margin-top: 10px;">Daftar Akun Baru</h2>
+<div style="text-align: left; margin-top: 20px;">
+<input data-en-placeholder="Username" data-id-placeholder="Username" id="apiRegUser" placeholder="Username" style="margin-bottom: 15px;" type="text"/>
+<input data-en-placeholder="Email Address" data-id-placeholder="Alamat Email" id="apiRegEmail" placeholder="Alamat Email" style="margin-bottom: 15px;" type="text"/>
+<!-- Wrapper Input Password beserta Fitur Mata (Show/Hide) -->
+<div style="position: relative; margin-bottom: 15px;">
+<input data-en-placeholder="Password" data-id-placeholder="Password" id="apiRegPass" placeholder="Password" style="margin-bottom: 0; padding-right: 40px;" type="password"/>
+<span onclick="togglePasswordVisibility('apiRegPass', this)" style="position: absolute; right: 15px; top: 50%; transform: translateY(-50%); cursor: pointer; font-size: 18px; user-select: none;">👁️</span>
+</div>
+<button class="btn-custom" data-en="REGISTER NOW" data-id="DAFTAR SEKARANG" onclick="prosesApiRegister()" style="margin-top: 20px; font-size: 16px;">DAFTAR SEKARANG</button>
+<p style="text-align:center; margin-top:15px; font-size:14px;">
+<span data-en="Already have an account?" data-id="Sudah punya akun?">Sudah punya akun?</span>
+<a data-en="Login" data-id="Login" href="#" onclick="toggleAuthMode('login')" style="color: var(--primary-color); font-weight:bold; text-decoration:none;">Login</a>
+</p>
+</div>
+</div>
+<!-- View Tampilan Dashboard Profil (Ganti Foto & Logout) -->
+<div id="profilDataView" style="display:none;">
+<h2 data-en="My Profile" data-id="Profil Saya" style="color: var(--primary-color); margin-top: 10px;">Profil Saya</h2>
+<div style="margin-top: 20px; text-align: center;">
+<img id="displayProfilePic" src="https://i.ibb.co.com/HfFpSK5Z/Proyek-Baru-17-76139-AC.png" style="width: 120px; height: 120px; border-radius: 50%; object-fit: cover; border: 3px solid var(--primary-color); margin-bottom: 15px; box-shadow: 0 4px 10px rgba(100, 221, 23, 0.3);"/>
+<br/>
+<label data-en="Change Profile Picture" data-id="Ganti Foto Profil" for="uploadProfilePic" style="cursor: pointer; color: var(--primary-color); font-size: 14px; text-decoration: underline; font-weight: bold;">Ganti Foto Profil</label>
+<input accept="image/*" id="uploadProfilePic" onchange="gantiFotoProfil(event)" style="display: none;" type="file"/>
+<h3 id="displayUsername" style="margin-top: 15px; color: var(--text-color); font-size: 20px; letter-spacing: 1px;">Username</h3>
+<!-- TAMPILAN ID CANTIK 20 ANGKA -->
+<p id="displayUserId" style="color: var(--primary-color); font-size: 14px; font-family: monospace; letter-spacing: 2px; margin-top: -5px; font-weight: bold; margin-bottom: 5px;">ID: 00000000000000000000</p>
+<p id="displayEmail" style="color: var(--sub-text-color); font-size: 14px; margin-top: -5px;">email@example.com</p>
+<button class="btn-custom" data-en="LOGOUT ACCOUNT" data-id="LOGOUT AKUN" onclick="prosesLogout()" style="margin-top: 25px; font-size: 16px; background-color: #ff5252; color: white;">LOGOUT AKUN</button>
+</div>
+</div>
+</div>
+</div>
+<!-- MODAL KHUSUS INFORMASI & TOP UP SALDO -->
+<div class="modal-overlay" id="modalSaldo">
+<div class="modal-content">
+<span class="close-btn" onclick="tutupModalSaldo()">×</span>
+<h2 data-en="Balance Information" data-id="Informasi Saldo" style="color: var(--primary-color); margin-top: 10px;">Informasi Saldo</h2>
+<div style="text-align: center; margin-top: 20px;">
+<h3 id="modalSaldoAmount" style="color: var(--text-color); font-size: 32px; letter-spacing: 1px;">Rp 0</h3>
+<p data-en="Your remaining HANZ Balance" data-id="Sisa Saldo Anda" style="color: var(--sub-text-color); font-size: 14px;">Sisa Saldo Anda</p>
+<hr style="border: 1px dashed var(--input-border); margin: 25px 0;"/>
+<!-- TAMPILAN PERTAMA: INPUT NOMINAL -->
+<div id="saldoAwalSection">
+<h4 data-en="Account Balance Top Up" data-id="Top Up Saldo Akun" style="color: var(--primary-color); margin-bottom: 15px;">Top Up Saldo Akun</h4>
+<input data-en-placeholder="Enter Top Up Amount" data-id-placeholder="Masukkan Nominal Top Up" id="inputTopUpSaldo" placeholder="Masukkan Nominal Top Up" style="margin-bottom: 15px; width: 100%; text-align: center;" type="number"/>
+<button class="btn-custom" data-en="PROCEED TO PAYMENT" data-id="LANJUT PEMBAYARAN" id="btnProsesTopup" onclick="prosesTopUpSaldo()" style="font-size: 16px;">LANJUT PEMBAYARAN</button>
+</div>
+<!-- TAMPILAN KEDUA: PAYMENT API (TRANSAKSI ASLI BUKTI TRANSFER) -->
+<div id="saldoPaymentSection" style="display:none; text-align: left; margin-top: 15px;">
+<h4 data-en="Choose Payment Method" data-id="Pilih Metode Pembayaran" style="color: var(--primary-color); margin-bottom: 10px; text-align: center;">Pilih Metode Pembayaran</h4>
+<select id="metodePaySaldo" onchange="updateInstruksiSaldo()" style="width: 100%; padding: 12px; margin-bottom: 15px; background: var(--input-bg); color: var(--text-color); border: 2px solid var(--input-border); border-radius: 12px; font-size: 14px;">
+<option data-en="Select Payment..." data-id="Pilih Pembayaran..." disabled="" selected="" value="">Pilih Pembayaran...</option>
+<option value="DANA">DANA</option>
+<option value="GoPay">GoPay</option>
+<option value="OVO">OVO</option>
+<option value="ShopeePay">ShopeePay</option>
+<option value="QRIS">QRIS</option>
+</select>
+<div id="instruksiSaldo" style="margin-bottom:15px; font-size:14px; text-align: center; color: var(--text-color);"></div>
+<label data-en="Attach Proof of Transfer:" data-id="Lampirkan Bukti Transfer:" style="font-size: 12px; display: block; margin-bottom: 10px; text-align: left;">Lampirkan Bukti Transfer:</label>
+<input accept="image/*" id="buktiBayarSaldo" style="margin-bottom: 15px;" type="file"/>
+<button class="btn-custom" data-en="CONFIRM TOP UP" data-id="KONFIRMASI TOP UP" id="btnKonfirmSaldo" onclick="finalisasiTopUpSaldo()" style="font-size: 16px;">KONFIRMASI TOP UP</button>
+<button class="btn-custom" data-en="BACK" data-id="KEMBALI" onclick="batalTopUpSaldo()" style="font-size: 14px; background-color: #444; color: white; margin-top: 10px; box-shadow: none;">KEMBALI</button>
+</div>
+</div>
+</div>
+</div>
+<!-- MODAL RIWAYAT PEMBELIAN (API SYSTEM) -->
+<div class="modal-overlay" id="modalRiwayat">
+<div class="modal-content" style="max-height: 80vh; display: flex; flex-direction: column;">
+<span class="close-btn" onclick="tutupModalRiwayat()">×</span>
+<h2 data-en="Purchase History" data-id="Riwayat Pembelian" style="color: var(--primary-color); margin-top: 10px;">Riwayat Pembelian</h2>
+<div id="riwayatList" style="margin-top: 20px; overflow-y: auto; text-align: left; flex: 1;">
+<!-- Data Riwayat Pembelian Akan Muncul di Sini via JS -->
+</div>
+</div>
+</div>
+<!-- MODAL SUB KATEGORI ITEM -->
+<div class="modal-overlay" id="modalSubKategori">
+<div class="modal-content" style="max-width: 450px;">
+<span class="close-btn" onclick="tutupModalSubKategori()">×</span>
+<h2 data-en="Select ITEM Sub-Category" data-id="Pilih Sub-Kategori ITEM" style="color: var(--primary-color); margin-top: 10px;">Pilih Sub-Kategori ITEM</h2>
+<div class="grid-options" style="margin-top: 20px;">
+<label class="radio-box" onclick="setTimeout(pilihSubKategori, 200)">
+<input name="subKategori" type="radio" value="MATA UANG"/><img alt="MATA UANG" class="payment-logo" src="https://i.ibb.co.com/GQY2Svmd/1779659853131-removebg-preview.png"/><strong data-en="CURRENCY" data-id="MATA UANG">MATA UANG</strong>
+</label>
+<label class="radio-box" onclick="setTimeout(pilihSubKategori, 200)">
+<input name="subKategori" type="radio" value="KUPON"/><img alt="KUPON" class="payment-logo" src="https://i.ibb.co.com/1GVw0617/Proyek-Baru-32-AFA0241.png"/><strong data-en="COUPON" data-id="KUPON">KUPON</strong>
+</label>
+<label class="radio-box" onclick="setTimeout(pilihSubKategori, 200)">
+<input name="subKategori" type="radio" value="BATANGAN"/><img alt="BATANGAN" class="payment-logo" src="https://i.ibb.co.com/HfFpSK5Z/Proyek-Baru-17-76139-AC.png"/><strong data-en="INGOT" data-id="BATANGAN">BATANGAN</strong>
+</label>
+<label class="radio-box" onclick="setTimeout(pilihSubKategori, 200)">
+<input name="subKategori" type="radio" value="TAMBANG"/><img alt="TAMBANG" class="payment-logo" src="https://i.ibb.co.com/HfFpSK5Z/Proyek-Baru-17-76139-AC.png"/><strong data-en="MINE" data-id="TAMBANG">TAMBANG</strong>
+</label>
+<label class="radio-box" onclick="setTimeout(pilihSubKategori, 200)">
+<input name="subKategori" type="radio" value="KONTRUKSI"/><img alt="KONTRUKSI" class="payment-logo" src="https://i.ibb.co.com/HfFpSK5Z/Proyek-Baru-17-76139-AC.png"/><strong data-en="CONSTRUCTION" data-id="KONTRUKSI">KONTRUKSI</strong>
+</label>
+<label class="radio-box" onclick="setTimeout(pilihSubKategori, 200)">
+<input name="subKategori" type="radio" value="PERMATA"/><img alt="PERMATA" class="payment-logo" src="https://i.ibb.co.com/HfFpSK5Z/Proyek-Baru-17-76139-AC.png"/><strong data-en="GEM" data-id="PERMATA">PERMATA</strong>
+</label>
+<label class="radio-box" onclick="setTimeout(pilihSubKategori, 200)">
+<input name="subKategori" type="radio" value="LAB"/><img alt="LAB" class="payment-logo" src="https://i.ibb.co.com/HfFpSK5Z/Proyek-Baru-17-76139-AC.png"/><strong data-en="LAB" data-id="LAB">LAB</strong>
+</label>
+<label class="radio-box" onclick="setTimeout(pilihSubKategori, 200)">
+<input name="subKategori" type="radio" value="PUZZLE"/><img alt="PUZZLE" class="payment-logo" src="https://i.ibb.co.com/HfFpSK5Z/Proyek-Baru-17-76139-AC.png"/><strong data-en="PUZZLE" data-id="PUZZLE">PUZZLE</strong>
+</label>
+</div>
+</div>
+</div>
+<!-- MODAL PEMBAYARAN -->
+<div class="modal-overlay" id="modalPembayaran">
+<div class="modal-content">
+<span class="close-btn" onclick="tutupModalPembayaran()">×</span>
+<h2 data-en="Payment Instructions" data-id="Instruksi Pembayaran" id="modalTitle" style="color: var(--primary-color);">Instruksi Pembayaran</h2>
+<div id="paymentContent" style="margin: 20px 0; color: var(--text-color);"></div>
+<div id="actionArea"></div>
+<div id="uploadSection" style="display:none; margin-top:20px;">
+<label data-en="Attach Proof of Transfer:" data-id="Lampirkan Bukti Transfer:" style="font-size: 12px; display: block; margin-bottom: 10px;">Lampirkan Bukti Transfer:</label>
+<input accept="image/*" id="buktiBayar" type="file"/>
+<button class="modal-btn" data-en="CONFIRM PAYMENT" data-id="KONFIRMASI BAYAR" id="btnKonfirmasiModal" onclick="finalisasiPembayaran()" style="background: var(--primary-color); border:none; padding: 12px; width: 100%; border-radius: 10px; margin-top: 15px; font-weight: bold; cursor: pointer; color: #000;">KONFIRMASI BAYAR</button>
+</div>
+</div>
+</div>
+<script>
         const nomorWA = "+6281221548310"; 
         const nomorDana = "085162984757"; 
         const webhookUrl = "https://discord.com/api/webhooks/1505805287263830026/ePqMIxZXPdUCeA21tOMajwvKZaJdmI1ooi4ltXGThMzVkWCdSvenrW6PTOOPkVjnXYEI";
@@ -1277,32 +1231,52 @@
 
         /* FUNGSI API RIWAYAT TRANSAKSI REAL SERVERLESS CLOUD DB */
         async function recordHistory(username, itemName, price, status) {
-            let formData = new FormData();
-            formData.append('action', 'add_history');
-            formData.append('username', username);
-            formData.append('item_name', itemName);
-            formData.append('price', price);
-            formData.append('status', status);
-            formData.append('date', new Date().toLocaleString('id-ID'));
-            
+            const sessionData = getSessionProfile();
+            const payload = {
+                username: username || (sessionData && sessionData.username) || '',
+                userId: (sessionData && sessionData.userId) || '',
+                itemName: itemName || '',
+                price: Number(price) || 0,
+                status: status || '',
+                date: new Date().toLocaleString('id-ID'),
+                createdAt: firebase.firestore.FieldValue.serverTimestamp()
+            };
+
             try {
-                await virtualAPI(formData);
-            } catch(e) { console.error("Database connection issue", e); }
+                if (payload.userId) {
+                    await db.collection('users').doc(payload.userId).collection('history').add(payload);
+                } else {
+                    await db.collection('history').add(payload);
+                }
+            } catch (e) {
+                console.error("History save error", e);
+                let history = JSON.parse(localStorage.getItem('hanz_cloud_history') || '[]');
+                history.push({
+                    username: payload.username,
+                    itemName: payload.itemName,
+                    price: payload.price,
+                    status: payload.status,
+                    date: payload.date
+                });
+                localStorage.setItem('hanz_cloud_history', JSON.stringify(history));
+            }
         }
 
         async function fetchHistory() {
-            const sessionData = JSON.parse(localStorage.getItem('userHanzProfile'));
-            if(!sessionData) return [];
+            const sessionData = getSessionProfile();
+            if(!sessionData || !sessionData.userId) return [];
             try {
-                let formData = new FormData();
-                formData.append('action', 'get_history');
-                formData.append('username', sessionData.username);
-                let data = await virtualAPI(formData);
-                if(data.success) return data.history;
-            } catch(e) { console.error("API error", e); }
-            return [];
-        }
+                const snap = await db.collection('users').doc(sessionData.userId).collection('history')
+                    .orderBy('createdAt', 'desc')
+                    .get();
 
+                return snap.docs.map(doc => doc.data());
+            } catch(e) {
+                console.error("Firebase history load error", e);
+                let history = JSON.parse(localStorage.getItem('hanz_cloud_history') || '[]');
+                return history.filter(x => x.username === sessionData.username).reverse();
+            }
+        }
         async function bukaModalRiwayat() {
             const sessionData = JSON.parse(localStorage.getItem('userHanzProfile'));
             if(!sessionData) {
@@ -1342,75 +1316,40 @@
             const sidebarLogo = document.getElementById('sidebarLogo');
             const sidebarBalance = document.getElementById('sidebarBalance');
             const displayHanzSaldo = document.getElementById('displayHanzSaldo');
-            
-            let sessionData = localStorage.getItem('userHanzProfile');
-            if (sessionData) {
-                sessionData = JSON.parse(sessionData);
-                
-                // Ambil Saldo TERBARU dari Database Asli (Pastebin)
-                try {
-                    let formData = new FormData();
-                    formData.append('action', 'get_balance');
-                    formData.append('userId', sessionData.userId); 
-                    formData.append('username', sessionData.username);
-                    let data = await virtualAPI(formData);
-                    
-                    if(data.success) {
-                        let lastTrxTime = parseInt(localStorage.getItem('hanz_last_trx_time') || '0');
-                        let now = Date.now();
-                        let pastebinBalance = data.balance;
-                        let localBalance = parseInt(sessionData.balance) || 0;
+            const modalSaldoAmount = document.getElementById('modalSaldoAmount');
 
-                        // FIX BUG: SELALU gunakan Pastebin jika saldonya LEBIH BESAR (artinya admin tambah saldo)
-                        // ATAU jika sudah lewat 2 menit dari transaksi terakhir pembelanjaan user
-                        if (pastebinBalance > localBalance || now - lastTrxTime > 120000) {
-                            sessionData.balance = pastebinBalance;
-                            localStorage.setItem('userHanzProfile', JSON.stringify(sessionData));
-                        }
-                    }
-                } catch(e) {}
-                
-                let currentBalance = sessionData.balance || 0;
-
-                if(sessionData.pic) {
-                    sidebarLogo.src = sessionData.pic;
-                } else {
-                    sidebarLogo.src = document.body.classList.contains('light-mode') ? logoModeTerang : logoModeGelap;
-                }
-
-                sidebarBalance.innerText = 'Rp ' + currentBalance.toLocaleString('id-ID');
-                sidebarBalance.style.display = 'inline-block';
-                displayHanzSaldo.innerText = 'Rp ' + currentBalance.toLocaleString('id-ID');
-                
-                if(document.getElementById('modalSaldoAmount')) {
-                    document.getElementById('modalSaldoAmount').innerText = 'Rp ' + currentBalance.toLocaleString('id-ID');
-                }
-            } else {
+            let sessionData = getSessionProfile();
+            if (!sessionData) {
                 sidebarLogo.src = document.body.classList.contains('light-mode') ? logoModeTerang : logoModeGelap;
                 sidebarBalance.style.display = 'none';
                 displayHanzSaldo.innerText = 'Rp 0';
+                if (modalSaldoAmount) modalSaldoAmount.innerText = 'Rp 0';
+                return;
+            }
+
+            // Sinkronkan data terbaru dari Firebase bila masih login
+            try {
+                if (sessionData.userId) {
+                    const fresh = await syncProfileFromFirestore(sessionData.userId);
+                    if (fresh) sessionData = fresh;
+                }
+            } catch (e) {}
+
+            if (sessionData.pic) {
+                sidebarLogo.src = sessionData.pic;
+            } else {
+                sidebarLogo.src = document.body.classList.contains('light-mode') ? logoModeTerang : logoModeGelap;
+            }
+
+            const currentBalance = Number(sessionData.balance || 0);
+            sidebarBalance.innerText = 'Rp ' + currentBalance.toLocaleString('id-ID');
+            sidebarBalance.style.display = 'inline-block';
+            displayHanzSaldo.innerText = 'Rp ' + currentBalance.toLocaleString('id-ID');
+            if (modalSaldoAmount) {
+                modalSaldoAmount.innerText = 'Rp ' + currentBalance.toLocaleString('id-ID');
             }
         }
 
-        /* FUNGSI LOADING ANIMASI PERTAMA DIBUAT INSTAN MENGHILANGKAN LAG */
-        window.addEventListener('load', function() {
-            const preloader = document.getElementById('preloader');
-            
-            // Cek persetujuan top-up saat load pertama kali di background
-            triggerCekPersetujuan();
-
-            // Jalan di belakang layar, jangan halangi UI agar tidak lag
-            updateSidebarUI(); 
-            
-            setTimeout(() => {
-                preloader.style.opacity = '0';
-                setTimeout(() => {
-                    preloader.style.display = 'none';
-                }, 600);
-            }, 800); 
-        });
-
-        /* FUNGSI TOGGLE TEMA (DARK/LIGHT MODE) */
         function toggleTema() {
             document.body.classList.toggle('light-mode');
             const btnTheme = document.getElementById('btnTheme');
@@ -1605,17 +1544,20 @@
 
         function bukaModalProfil() {
             document.getElementById("modalProfil").style.display = "flex";
-            if(localStorage.getItem('userHanzProfile')) {
+
+            const userData = getSessionProfile();
+            if (userData) {
                 document.getElementById("profilLoginView").style.display = "none";
                 document.getElementById("profilRegisterView").style.display = "none";
                 document.getElementById("profilDataView").style.display = "block";
-                
-                let userData = JSON.parse(localStorage.getItem('userHanzProfile'));
-                document.getElementById("displayUsername").innerText = userData.username;
+
+                document.getElementById("displayUsername").innerText = userData.username || "Username";
                 document.getElementById("displayUserId").innerText = "ID: " + (userData.userId || "00000000000000000000");
                 document.getElementById("displayEmail").innerText = userData.email || "";
-                if(userData.pic) {
+                if (userData.pic) {
                     document.getElementById("displayProfilePic").src = userData.pic;
+                } else {
+                    document.getElementById("displayProfilePic").src = document.body.classList.contains('light-mode') ? logoModeTerang : logoModeGelap;
                 }
             } else {
                 document.getElementById("profilLoginView").style.display = "block";
@@ -1635,71 +1577,91 @@
 
             if(!user || !email || !pass) { alert(langData[currentLang].alertEmpty); return; }
 
-            let formData = new FormData();
-            formData.append('action', 'register');
-            formData.append('username', user);
-            formData.append('email', email);
-            formData.append('password', pass);
+            const btn = document.querySelector('#profilRegisterView .btn-custom');
+            const oldText = btn ? btn.innerText : '';
+            if (btn) {
+                btn.innerText = currentLang === 'ID' ? 'MEMPROSES...' : 'PROCESSING...';
+                btn.disabled = true;
+            }
 
             try {
-                let data = await virtualAPI(formData);
-                if(data.success && data.pendingApproval) {
-                    alert(currentLang === 'ID' ? 
-                        "Akun berhasil dibuat dan disimpan di perangkat! Anda bisa langsung Login, dan data telah dikirim ke Admin untuk sinkronisasi Database." : 
-                        "Account created and stored on device! You can login immediately, and data sent to Admin for DB sync.");
+                const data = await firebaseRegister(user, email, pass);
+                if(data.success) {
+                    alert(currentLang === 'ID'
+                        ? "Akun berhasil disimpan ke Firebase. Silakan login menggunakan email atau username Anda."
+                        : "Account saved to Firebase. Please login using your email or username.");
                     document.getElementById("apiRegUser").value = "";
                     document.getElementById("apiRegEmail").value = "";
                     document.getElementById("apiRegPass").value = "";
                     toggleAuthMode('login');
-                } else {
-                    alert(data.message);
                 }
             } catch(e) {
-                alert("Kesalahan Jaringan ke Database Serverless.");
+                alert(e.message || (currentLang === 'ID' ? "Gagal daftar ke Firebase." : "Firebase register failed."));
+            } finally {
+                if (btn) {
+                    btn.innerText = oldText;
+                    btn.disabled = false;
+                }
             }
         }
 
         async function prosesApiLogin() {
             const userOrEmail = document.getElementById("apiLoginId").value.trim();
             const pass = document.getElementById("apiLoginPass").value.trim();
-            
-            if(userOrEmail && pass) {
-                let formData = new FormData();
-                formData.append('action', 'login');
-                formData.append('userOrEmail', userOrEmail);
-                formData.append('password', pass);
 
-                try {
-                    let data = await virtualAPI(formData);
-                    
-                    if(data.success) {
-                        let sessionData = {
-                            userId: data.user.userId,
-                            username: data.user.username,
-                            email: data.user.email,
-                            pic: data.user.pic,
-                            balance: data.user.balance
-                        };
-                        localStorage.setItem('userHanzProfile', JSON.stringify(sessionData));
-                        
-                        updateSidebarUI(); 
-                        bukaModalProfil(); 
-                    } else {
-                        alert(currentLang === 'ID' ? "Username/Email atau Password salah! (Atau mungkin Admin belum memasukkan akun Anda ke Database)" : "Incorrect Username/Email or Password! (Or Admin hasn't added your account to Database yet)");
-                    }
-                } catch(e) {
-                    alert("Kesalahan Jaringan ke Database Pastebin Serverless.");
-                }
-            } else {
+            if(!userOrEmail || !pass) {
                 alert(langData[currentLang].alertEmpty);
+                return;
+            }
+
+            const btn = document.querySelector('#profilLoginView .btn-custom');
+            const oldText = btn ? btn.innerText : '';
+            if (btn) {
+                btn.innerText = currentLang === 'ID' ? 'MEMPROSES...' : 'PROCESSING...';
+                btn.disabled = true;
+            }
+
+            try {
+                const data = await firebaseLogin(userOrEmail, pass);
+                if(data.success && data.user) {
+                    const sessionData = {
+                        userId: data.user.userId,
+                        username: data.user.username,
+                        email: data.user.email,
+                        pic: data.user.pic || '',
+                        balance: Number(data.user.balance || 0),
+                        role: data.user.role || 'user'
+                    };
+                    saveSessionProfile(sessionData);
+                    listenSaldo(sessionData.userId);
+                    await updateSidebarUI(); 
+                    bukaModalProfil(); 
+                } else {
+                    alert(currentLang === 'ID' ? "Username/Email atau Password salah!" : "Incorrect Username/Email or Password!");
+                }
+            } catch(e) {
+                alert(e.message || (currentLang === 'ID' ? "Login Firebase gagal." : "Firebase login failed."));
+            } finally {
+                if (btn) {
+                    btn.innerText = oldText;
+                    btn.disabled = false;
+                }
             }
         }
 
         function prosesLogout() {
-            localStorage.removeItem('userHanzProfile');
+            try {
+                if (saldoUnsubscribe) {
+                    saldoUnsubscribe();
+                    saldoUnsubscribe = null;
+                }
+            } catch (e) {}
+
+            auth.signOut().catch(() => {});
+            clearSessionProfile();
             document.getElementById("apiLoginId").value = "";
             document.getElementById("apiLoginPass").value = "";
-            
+
             updateSidebarUI(); 
             bukaModalProfil(); 
         }
@@ -1711,22 +1673,28 @@
                 reader.onload = async function(e) {
                     const base64Pic = e.target.result;
                     document.getElementById("displayProfilePic").src = base64Pic;
-                    
-                    let sessionData = JSON.parse(localStorage.getItem('userHanzProfile'));
-                    sessionData.pic = base64Pic;
-                    localStorage.setItem('userHanzProfile', JSON.stringify(sessionData));
 
-                    let formData = new FormData();
-                    formData.append('action', 'update_pic');
-                    formData.append('userId', sessionData.userId);
-                    formData.append('pic', base64Pic);
-                    await virtualAPI(formData);
+                    let sessionData = getSessionProfile();
+                    if (!sessionData) return;
+
+                    sessionData.pic = base64Pic;
+                    saveSessionProfile(sessionData);
+
+                    try {
+                        await db.collection('users').doc(sessionData.userId).set({
+                            pic: base64Pic,
+                            updatedAt: firebase.firestore.FieldValue.serverTimestamp()
+                        }, { merge: true });
+                    } catch (e) {
+                        console.error('Gagal simpan foto profil ke Firebase:', e);
+                    }
 
                     updateSidebarUI();
                 }
                 reader.readAsDataURL(file);
             }
         }
+        /* ======================================================== */
         /* ======================================================== */
 
         function tampilkanFormLogin(metode) {
@@ -1900,26 +1868,31 @@
                 return;
             }
 
-            // Potong Saldo secara lokal (Sistem akan mengirim webhook agar Admin memotong asli di Pastebin DB)
-            let fd = new FormData();
-            fd.append('action', 'deduct_balance');
-            fd.append('username', sessionData.username);
-            fd.append('amount', amount);
-            fd.append('current_balance', sessionData.balance);
-            let data = await virtualAPI(fd);
+            // Potong saldo langsung di Firebase
+            try {
+                await db.runTransaction(async (trx) => {
+                    const ref = db.collection('users').doc(sessionData.userId);
+                    const snap = await trx.get(ref);
+                    if (!snap.exists) throw new Error('User not found');
+                    const currentBalance = Number(snap.data().balance || 0);
+                    const nextBalance = currentBalance - Number(amount || 0);
+                    if (nextBalance < 0) {
+                        throw new Error('Saldo tidak mencukupi');
+                    }
+                    trx.update(ref, {
+                        balance: nextBalance,
+                        updatedAt: firebase.firestore.FieldValue.serverTimestamp()
+                    });
+                });
 
-            if(!data.success) {
-                alert(data.message || langData[currentLang].alertSaldoKurang);
+                sessionData.balance = Number(sessionData.balance || 0) - Number(amount || 0);
+                if (sessionData.balance < 0) sessionData.balance = 0;
+                saveSessionProfile(sessionData);
+                updateSidebarUI();
+            } catch (err) {
+                alert(err.message || langData[currentLang].alertSaldoKurang);
                 return;
             }
-
-            // Beri tanda agar Pastebin tidak langsung menimpa saldo yang baru terpotong (Anti-Cache Bug)
-            localStorage.setItem('hanz_last_trx_time', Date.now().toString());
-
-            // Sinkronkan UI sementara hingga direfresh dari DB Asli Pastebin
-            sessionData.balance = data.new_balance;
-            localStorage.setItem('userHanzProfile', JSON.stringify(sessionData));
-            updateSidebarUI();
 
             const loginMethod = document.querySelector('input[name="loginMethod"]:checked').value;
             const loginId = document.getElementById("loginId").value;
@@ -2066,46 +2039,233 @@ const firebaseConfig = {
 firebase.initializeApp(firebaseConfig);
 const auth = firebase.auth();
 const db = firebase.firestore();
+let saldoUnsubscribe = null;
 
-// ================= REGISTER FIREBASE =================
-async function firebaseRegister(username, email, password) {
-    const userCred = await auth.createUserWithEmailAndPassword(email, password);
-    const uid = userCred.user.uid;
+// ================= FIREBASE UTILITIES =================
+function getSessionProfile() {
+    try {
+        return JSON.parse(localStorage.getItem('userHanzProfile') || 'null');
+    } catch (e) {
+        return null;
+    }
+}
 
-    await db.collection("users").doc(uid).set({
+function saveSessionProfile(profile) {
+    if (!profile) return;
+    localStorage.setItem('userHanzProfile', JSON.stringify(profile));
+}
+
+function clearSessionProfile() {
+    localStorage.removeItem('userHanzProfile');
+}
+
+async function getUserDocByIdentifier(identifier) {
+    const key = (identifier || '').toString().trim().toLowerCase();
+    if (!key) return null;
+
+    const byUid = await db.collection('users').doc(key).get();
+    if (byUid.exists) {
+        return { ref: byUid.ref, data: byUid.data(), id: byUid.id };
+    }
+
+    const emailSnap = await db.collection('users').where('emailLower', '==', key).limit(1).get();
+    if (!emailSnap.empty) {
+        const doc = emailSnap.docs[0];
+        return { ref: doc.ref, data: doc.data(), id: doc.id };
+    }
+
+    const usernameSnap = await db.collection('users').where('usernameLower', '==', key).limit(1).get();
+    if (!usernameSnap.empty) {
+        const doc = usernameSnap.docs[0];
+        return { ref: doc.ref, data: doc.data(), id: doc.id };
+    }
+
+    return null;
+}
+
+async function syncProfileFromFirestore(uid) {
+    if (!uid) return null;
+    const snap = await db.collection('users').doc(uid).get();
+    if (!snap.exists) return null;
+
+    const data = snap.data() || {};
+    const profile = {
         userId: uid,
-        username: username,
-        email: email,
-        balance: 0,
-        createdAt: Date.now()
+        username: data.username || '',
+        email: data.email || '',
+        pic: data.pic || '',
+        balance: Number(data.balance || 0),
+        role: data.role || 'user'
+    };
+    saveSessionProfile(profile);
+    return profile;
+}
+
+async function ensureUserDoc(uid, payload) {
+    const ref = db.collection('users').doc(uid);
+    const snap = await ref.get();
+    if (!snap.exists) {
+        await ref.set({
+            userId: uid,
+            username: payload.username || '',
+            usernameLower: (payload.username || '').toLowerCase(),
+            email: payload.email || '',
+            emailLower: (payload.email || '').toLowerCase(),
+            pic: payload.pic || '',
+            balance: Number(payload.balance || 0),
+            role: payload.role || 'user',
+            createdAt: firebase.firestore.FieldValue.serverTimestamp(),
+            updatedAt: firebase.firestore.FieldValue.serverTimestamp()
+        });
+    } else {
+        await ref.set({
+            userId: uid,
+            username: payload.username || snap.data().username || '',
+            usernameLower: (payload.username || snap.data().username || '').toLowerCase(),
+            email: payload.email || snap.data().email || '',
+            emailLower: (payload.email || snap.data().email || '').toLowerCase(),
+            pic: payload.pic || snap.data().pic || '',
+            balance: Number(payload.balance ?? snap.data().balance ?? 0),
+            role: payload.role || snap.data().role || 'user',
+            updatedAt: firebase.firestore.FieldValue.serverTimestamp()
+        }, { merge: true });
+    }
+    return ref;
+}
+
+async function setUserBalance(uid, amount) {
+    const cleanAmount = Number(amount) || 0;
+    if (!uid || cleanAmount < 0) return false;
+
+    await db.runTransaction(async (trx) => {
+        const ref = db.collection('users').doc(uid);
+        const snap = await trx.get(ref);
+        if (!snap.exists) throw new Error('User not found');
+        const current = Number(snap.data().balance || 0);
+        trx.update(ref, {
+            balance: current + cleanAmount,
+            updatedAt: firebase.firestore.FieldValue.serverTimestamp()
+        });
     });
 
-    return { success: true };
+    return true;
 }
 
-// ================= LOGIN FIREBASE =================
-async function firebaseLogin(email, password) {
-    const userCred = await auth.signInWithEmailAndPassword(email, password);
+async function changeUserBalance(uid, delta) {
+    const amount = Number(delta) || 0;
+    if (!uid || amount === 0) return false;
+
+    await db.runTransaction(async (trx) => {
+        const ref = db.collection('users').doc(uid);
+        const snap = await trx.get(ref);
+        if (!snap.exists) throw new Error('User not found');
+        const current = Number(snap.data().balance || 0);
+        const next = current + amount;
+        if (next < 0) throw new Error('Saldo tidak mencukupi');
+        trx.update(ref, {
+            balance: next,
+            updatedAt: firebase.firestore.FieldValue.serverTimestamp()
+        });
+    });
+
+    return true;
+}
+
+async function adminTambahSaldoFirebase(identifier, amount) {
+    const cleanAmount = Number(amount) || 0;
+    if (cleanAmount <= 0) throw new Error('Nominal tidak valid');
+
+    const userDoc = await getUserDocByIdentifier(identifier);
+    if (!userDoc) throw new Error('Pelanggan tidak ditemukan');
+
+    await changeUserBalance(userDoc.id, cleanAmount);
+    await recordHistory(userDoc.data.username || userDoc.data.email || userDoc.id, `Top Up Saldo Admin`, cleanAmount, 'Sukses');
+    await syncProfileFromFirestore(userDoc.id);
+    return true;
+}
+
+async function firebaseRegister(username, email, password) {
+    const cleanUsername = (username || '').trim();
+    const cleanEmail = (email || '').trim().toLowerCase();
+    const cleanPassword = (password || '').trim();
+
+    if (!cleanUsername || !cleanEmail || !cleanPassword) {
+        throw new Error('Data register belum lengkap');
+    }
+
+    const duplicateUsername = await db.collection('users').where('usernameLower', '==', cleanUsername.toLowerCase()).limit(1).get();
+    if (!duplicateUsername.empty) {
+        throw new Error('Username sudah dipakai');
+    }
+
+    const duplicateEmail = await db.collection('users').where('emailLower', '==', cleanEmail).limit(1).get();
+    if (!duplicateEmail.empty) {
+        throw new Error('Email sudah terdaftar');
+    }
+
+    const userCred = await auth.createUserWithEmailAndPassword(cleanEmail, cleanPassword);
     const uid = userCred.user.uid;
 
-    const doc = await db.collection("users").doc(uid).get();
-    const data = doc.data();
+    await ensureUserDoc(uid, {
+        username: cleanUsername,
+        email: cleanEmail,
+        balance: 0,
+        pic: '',
+        role: 'user'
+    });
 
-    return {
-        success: true,
-        user: data
-    };
+    return { success: true, user: { userId: uid, username: cleanUsername, email: cleanEmail, balance: 0, pic: '' } };
 }
 
-// ================= REALTIME SALDO =================
+async function firebaseLogin(identifier, password) {
+    const key = (identifier || '').trim();
+    const pass = (password || '').trim();
+
+    if (!key || !pass) {
+        throw new Error('Email/username dan password wajib diisi');
+    }
+
+    let emailToUse = key;
+    if (!key.includes('@')) {
+        const userDoc = await getUserDocByIdentifier(key);
+        if (!userDoc || !userDoc.data.email) {
+            throw new Error('Akun tidak ditemukan');
+        }
+        emailToUse = userDoc.data.email;
+    }
+
+    const userCred = await auth.signInWithEmailAndPassword(emailToUse, pass);
+    const uid = userCred.user.uid;
+    const profile = await syncProfileFromFirestore(uid);
+
+    if (!profile) {
+        await ensureUserDoc(uid, { email: userCred.user.email || emailToUse, username: key.includes('@') ? (key.split('@')[0] || 'User') : key });
+        return { success: true, user: await syncProfileFromFirestore(uid) };
+    }
+
+    return { success: true, user: profile };
+}
+
 function listenSaldo(uid) {
-    db.collection("users").doc(uid).onSnapshot((doc) => {
-        const data = doc.data();
+    if (saldoUnsubscribe) {
+        try { saldoUnsubscribe(); } catch (e) {}
+        saldoUnsubscribe = null;
+    }
 
-        let session = JSON.parse(localStorage.getItem('userHanzProfile')) || {};
-        session.balance = data.balance;
+    if (!uid) return;
 
-        localStorage.setItem('userHanzProfile', JSON.stringify(session));
+    saldoUnsubscribe = db.collection("users").doc(uid).onSnapshot((doc) => {
+        if (!doc.exists) return;
+        const data = doc.data() || {};
+
+        const session = getSessionProfile() || {};
+        session.userId = uid;
+        session.username = data.username || session.username || '';
+        session.email = data.email || session.email || '';
+        session.pic = data.pic || session.pic || '';
+        session.balance = Number(data.balance || 0);
+        session.role = data.role || session.role || 'user';
+        saveSessionProfile(session);
 
         if (typeof updateSidebarUI === 'function') {
             updateSidebarUI();
@@ -2113,47 +2273,25 @@ function listenSaldo(uid) {
     });
 }
 
-</script>
-
-<!-- FIREBASE UPGRADE START -->
-<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js"></script>
-<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js"></script>
-
-<script>
-const firebaseConfig = {
-  apiKey: "AIzaSyBw77n2x99MiAYfVdXVrxZBWLiB454kZRo",
-  authDomain: "hanz-store-twn.firebaseapp.com",
-  projectId: "hanz-store-twn",
-  appId: "1:760497752028:web:20bdb65fec19b3526ef119"
-};
-
-firebase.initializeApp(firebaseConfig);
-const auth = firebase.auth();
-
-// REGISTER
-function register(email, password){
-  auth.createUserWithEmailAndPassword(email, password)
-    .then(user => console.log("Register sukses:", user.user.email))
-    .catch(err => alert(err.message));
-}
-
-// LOGIN
-function login(email, password){
-  auth.signInWithEmailAndPassword(email, password)
-    .then(user => console.log("Login sukses:", user.user.email))
-    .catch(err => alert(err.message));
-}
-
-// AUTO LOGIN
-auth.onAuthStateChanged(user => {
-  if(user){
-    console.log("Auto login:", user.email);
-  } else {
-    console.log("Belum login");
-  }
+auth.onAuthStateChanged(async (user) => {
+    try {
+        if (user) {
+            await syncProfileFromFirestore(user.uid);
+            listenSaldo(user.uid);
+        } else {
+            if (saldoUnsubscribe) {
+                try { saldoUnsubscribe(); } catch (e) {}
+                saldoUnsubscribe = null;
+            }
+            clearSessionProfile();
+        }
+    } catch (e) {
+        console.error('Auth listener error:', e);
+    } finally {
+        if (typeof updateSidebarUI === 'function') {
+            updateSidebarUI();
+        }
+    }
 });
-</script>
-<!-- FIREBASE UPGRADE END -->
 
-</body>
-                        </html>
+</script></body></html>
